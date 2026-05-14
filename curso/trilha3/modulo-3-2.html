@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.2 — Prompts Canhão | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Engenharia</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">No Expert</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">🧪 No Expert</a>
+      <span>/</span>
+      <span class="text-purple-400">Módulo 3.2</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">💥 Prompts Canhão</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Os prompts de alta potência que evoluem skills de forma radical — do reverse meta prompting à auditoria com agente especializado.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">35</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Expert</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🔄 O prompt de reverse meta prompting</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O reverse meta prompting é uma das técnicas mais poderosas para evoluir skills porque inverte o fluxo natural de criação. Ao invés de você pensar no que a skill precisa, você pede para o próprio agente que vai executá-la analisar o que está faltando. O agente tem uma perspectiva única: ele sabe exatamente onde as instruções são ambíguas, onde faltam exemplos, onde o trigger poderia ser melhor e onde o output poderia ser mais útil. Essa perspectiva é literalmente impossível de obter de outra forma — só o executor sabe o que precisa para executar melhor. O prompt completo abaixo captura essa perspectiva de forma estruturada e <strong class="text-purple-400">produz melhorias concretas e implementáveis</strong> em uma única sessão.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🎯</span> Conceito Principal: Inversão de perspectiva
+        </h3>
+        <p class="text-neutral-300 mb-4">O reverse meta prompting funciona porque quebra um viés fundamental: o criador de uma skill está tão familiarizado com ela que não consegue ver suas falhas óbvias. O executor as vê imediatamente. O prompt abaixo força essa perspectiva de forma sistemática.</p>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">💥 Prompt Completo: Reverse Meta Prompting</h3>
+        <pre><code class="text-sm text-neutral-300">Você vai analisar a skill abaixo como se fosse executá-la pela primeira
+vez, sem nenhum contexto adicional além do que está escrito.
+
+[COLE O CONTEÚDO COMPLETO DA SKILL AQUI]
+
+Analise a skill acima respondendo cada ponto:
+
+## 1. Análise de Trigger
+- O trigger na description é claro e inequívoco?
+- Há situações em que você ficaria em dúvida se deve acionar ou não?
+- O trigger pode ser confundido com outra skill que você conhece?
+- Proposta de melhoria do trigger (se necessário):
+
+## 2. Análise de Instruções
+- As instruções são completas para o fluxo principal?
+- Há alguma instrução que pode ser interpretada de duas formas?
+- Falta alguma instrução para os casos mais comuns de variação?
+- Liste os 3 gaps mais críticos nas instruções:
+
+## 3. Análise de Output
+- O formato de saída está claro?
+- O nível de detalhe solicitado é adequado ao propósito?
+- Há algum caso em que o output seria inadequado ou insuficiente?
+- Como o output poderia ser mais útil para quem vai usar?
+
+## 4. Análise de Contexto
+- A skill assume alguma informação que pode não estar disponível?
+- Há dependências de outras skills ou ferramentas que deveriam ser explícitas?
+- O que o usuário precisa saber antes de acionar essa skill?
+
+## 5. Proposta de Reescrita
+Com base na análise acima, reescreva a skill completa incorporando
+todas as melhorias identificadas. A nova versão deve:
+- Corrigir todos os gaps críticos identificados
+- Manter o propósito e o comportamento essencial da skill original
+- Ser mais clara e mais completa do que a versão atual
+
+## 6. Resumo das Mudanças
+Liste em bullet points o que mudou e por quê.</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Use este prompt logo após criar uma skill nova, antes de publicá-la. Você vai encontrar entre 3 e 7 melhorias em qualquer skill, independente de quão bem você acha que ela está. <strong>A primeira versão nunca é a melhor.</strong> O reverse meta prompting garante que a versão publicada já incorpora a perspectiva do executor.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🤖 O prompt de auditoria com claude-code-guide</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O agente claude-code-guide tem acesso ao sistema de arquivos e a contexto técnico profundo sobre como skills funcionam na prática dentro do Claude Code. Isso o torna excepcionalmente eficaz para auditorias que vão além da análise textual — ele pode verificar se os triggers fazem sentido no contexto real de uso, se há conflitos com outras skills no sistema e se as instruções são tecnicamente viáveis. O prompt abaixo ativa esse agente de forma estruturada, passando o contexto necessário e solicitando a análise nos pontos de maior valor. O resultado é uma auditoria técnica que combina perspectiva de executor com <strong class="text-purple-400">conhecimento especializado sobre o ambiente de execução</strong>.
+      </p>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">💥 Prompt Completo: Auditoria com Agente Especializado</h3>
+        <pre><code class="text-sm text-neutral-300">Use o agente claude-code-guide para auditar a skill abaixo.
+
+[COLE O CONTEÚDO COMPLETO DA SKILL AQUI]
+
+Instruções para o agente:
+
+Você é um especialista em skills para Claude Code. Sua missão é auditar
+a skill acima com profundidade técnica e imparcialidade total.
+
+## Fase 1 — Análise Técnica
+Verifique:
+1. O trigger é compatível com como o Claude Code reconhece acionamentos?
+2. As instruções são tecnicamente executáveis dentro das capacidades do modelo?
+3. Há dependências de ferramentas ou contextos que podem não estar disponíveis?
+4. O formato de output é consistente com as capacidades de formatação disponíveis?
+
+## Fase 2 — Análise de Consistência
+Verifique:
+1. As instruções internas são consistentes entre si?
+2. Há contradições entre o que a description promete e o que as instruções entregam?
+3. O escopo declarado (o que a skill faz) é igual ao escopo real (o que as instruções produzem)?
+
+## Fase 3 — Análise de Cobertura
+Verifique:
+1. A skill cobre os casos de uso mais comuns do seu propósito declarado?
+2. Há casos óbvios não cobertos que deveriam estar?
+3. Há casos cobertos que vão além do propósito declarado (scope creep)?
+
+## Fase 4 — Classificação de Findings
+Para cada problema encontrado, classifique:
+- CRÍTICO: Impede uso correto da skill
+- IMPORTANTE: Degrada significativamente a qualidade do output
+- MENOR: Melhoria desejável mas não urgente
+
+## Fase 5 — Relatório Final
+Produza um relatório estruturado com:
+- Resumo executivo (3 frases)
+- Lista de findings por severidade
+- Top 3 melhorias recomendadas com justificativa
+- Skill revisada incorporando as correções críticas e importantes</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Este prompt é mais pesado do que o reverse meta prompting — use-o para skills críticas que você usa diariamente, não para toda skill da biblioteca. Reserve para as 20% de skills que geram 80% do valor, e que merecem o investimento de uma auditoria aprofundada.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🏗️ O prompt de crítica estrutural</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Feedback positivo não melhora skills. O que melhora é feedback adversarial — alguém (ou algo) que ativamente tenta encontrar os pontos fracos. O prompt de crítica estrutural configura o modelo para assumir explicitamente uma postura de crítico implacável, sem suavizar os problemas encontrados. Ele busca as falhas que você nunca considerou: casos extremos que a skill não consegue tratar, ambiguidades que levam a outputs completamente errados em certas situações, e suposições não declaradas que funcionam bem no seu contexto mas falham no de qualquer outra pessoa. A ideia é simples mas poderosa: <strong class="text-purple-400">você não sabe o que não sabe sobre sua própria skill</strong>, e só um exercício adversarial consegue revelar isso.
+      </p>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">💥 Prompt Completo: Crítica Estrutural</h3>
+        <pre><code class="text-sm text-neutral-300">Você é um crítico adversarial especializado em encontrar falhas em skills
+para assistentes de IA. Sua missão é demolir a skill abaixo — encontrar
+todas as suas fraquezas, inconsistências, lacunas e casos de falha.
+
+NÃO seja gentil. NÃO elogie o que está bom. Foque EXCLUSIVAMENTE nos
+problemas. Seja implacável.
+
+[COLE O CONTEÚDO COMPLETO DA SKILL AQUI]
+
+## Análise Adversarial
+
+### 1. Falhas de Trigger
+- Em que situações o trigger seria acionado erroneamente?
+- Em que situações deveria ser acionado mas não seria?
+- Há triggers de outras skills que podem colidir com este?
+
+### 2. Casos de Falha Críticos
+Descreva 3-5 cenários em que esta skill produziria output errado,
+incompleto ou prejudicial. Para cada cenário:
+- Situação: O que o usuário está tentando fazer
+- Expectativa: O que deveria acontecer
+- Falha: O que realmente aconteceria com as instruções atuais
+- Impacto: Por que isso é um problema real
+
+### 3. Suposições Ocultas
+Liste todas as suposições não declaradas que a skill faz:
+- Sobre o nível técnico do usuário
+- Sobre o contexto de trabalho
+- Sobre as ferramentas disponíveis
+- Sobre o que é "óbvio" mas não está escrito
+
+### 4. Ambiguidades Fatais
+Liste todas as instruções que podem ser interpretadas de duas formas
+significativamente diferentes. Para cada uma:
+- A instrução ambígua
+- Interpretação A (e o que ela produziria)
+- Interpretação B (e o que ela produziria)
+- Por que a diferença importa
+
+### 5. Veredicto Final
+Com base na análise: esta skill é utilizável no estado atual?
+- Sim, com os ajustes X, Y, Z
+- Não, precisa de reescrita significativa por causa de...
+
+Forneça também uma versão melhorada que endereça as falhas críticas.</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Quando receber o relatório de crítica estrutural, resista ao impulso defensivo. <strong>Cada falha identificada é um presente.</strong> Priorize os casos de falha críticos — cenários em que a skill produziria output ativamente prejudicial — antes de qualquer outra melhoria.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🧩 O prompt de consolidação</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando você suspeita que duas ou mais skills estão fazendo coisas similares, o prompt de consolidação é a forma mais eficiente de confirmar a suspeita e agir sobre ela. Ele analisa as skills em conjunto, mapeia com precisão o que se sobrepõe e o que é exclusivo de cada uma, e produz uma proposta de consolidação com justificativa detalhada para cada decisão. O processo inclui uma matriz de sobreposição que torna visível o que antes estava implícito, e uma skill consolidada que incorpora o melhor de cada versão original. O diferencial em relação a uma consolidação manual é a <strong class="text-purple-400">sistematicidade</strong>: nenhum caso de uso é esquecido e nenhuma decisão é tomada por intuição.
+      </p>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">💥 Prompt Completo: Consolidação de Skills</h3>
+        <pre><code class="text-sm text-neutral-300">Analise as skills abaixo para identificar sobreposições e propor
+uma consolidação que preserve toda a funcionalidade existente.
+
+=== SKILL A ===
+[COLE O CONTEÚDO COMPLETO DA SKILL A AQUI]
+
+=== SKILL B ===
+[COLE O CONTEÚDO COMPLETO DA SKILL B AQUI]
+
+=== SKILL C (se houver) ===
+[COLE O CONTEÚDO COMPLETO DA SKILL C AQUI]
+
+## Fase 1 — Mapeamento Individual
+Para cada skill, extraia:
+1. Propósito central (1 frase máximo)
+2. Triggers (todas as condições de acionamento)
+3. Comportamentos exclusivos (o que só ela faz)
+4. Comportamentos compartilhados (o que outras também fazem)
+
+## Fase 2 — Matriz de Sobreposição
+Crie uma tabela com todos os comportamentos identificados:
+| Comportamento | Skill A | Skill B | Skill C | Decisão |
+|---|---|---|---|---|
+Liste cada comportamento e marque quais skills o possuem.
+Para comportamentos compartilhados, indique qual versão é melhor.
+
+## Fase 3 — Decisões de Consolidação
+Para cada sobreposição identificada:
+- O que manter da Skill A e por quê
+- O que manter da Skill B (ou C) e por quê
+- Como os comportamentos conflitantes serão resolvidos
+
+## Fase 4 — Skill Consolidada
+Produza a skill consolidada completa, incluindo:
+- Nome e description unificados
+- Triggers que cobrem todos os casos originais
+- Instruções integradas sem perda de funcionalidade
+- Comentário interno documentando o que foi consolidado
+
+## Fase 5 — Plano de Teste
+Liste os casos de teste necessários para validar que a skill
+consolidada cobre 100% dos casos de uso originais.
+
+## Fase 6 — Recomendação Final
+Deve consolidar? Justificativa em 2-3 frases.
+Se sim: quando e como arquivar as skills originais.
+Se não: por que manter separado é melhor neste caso.</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Execute o plano de teste antes de arquivar as skills originais. A consolidação pode parecer perfeita no papel e falhar em casos reais. <strong>Teste primeiro, archive depois</strong> — nunca o contrário.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">⛓️ Combinando prompts em sequência</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Cada prompt canhão tem um ângulo específico de análise: o reverse meta prompting enxerga pelo olho do executor, a crítica estrutural busca falhas adversarialmente, e o prompt de auditoria técnica verifica viabilidade de execução. Nenhum deles sozinho consegue ver tudo — mas combinados em sequência, cobrem virtualmente todos os ângulos possíveis de melhoria. O encadeamento ideal passa o output de cada prompt como input do próximo, criando um <strong class="text-purple-400">loop de refinamento progressivo</strong> que converge para uma skill muito mais robusta. O segredo está na ordem: começar com análise ampla (reverse meta), afunilar para problemas específicos (crítica estrutural), e finalizar com validação técnica (auditoria).
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">⛓️</span> Sequência Recomendada para Melhoria Profunda
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center">1</span>
+            <div>
+              <p class="font-semibold text-white">Reverse Meta Prompting</p>
+              <p class="text-sm text-neutral-400">Perspectiva do executor — o que está faltando para executar bem</p>
+              <p class="text-sm text-neutral-300 mt-1">Output: skill melhorada (V2) + lista de mudanças</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center">2</span>
+            <div>
+              <p class="font-semibold text-white">Crítica Estrutural (aplicar ao V2)</p>
+              <p class="text-sm text-neutral-400">Postura adversarial — encontrar o que ainda está fraco</p>
+              <p class="text-sm text-neutral-300 mt-1">Output: lista de falhas residuais + skill melhorada (V3)</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center">3</span>
+            <div>
+              <p class="font-semibold text-white">Auditoria Técnica (aplicar ao V3)</p>
+              <p class="text-sm text-neutral-400">Validação de viabilidade técnica e cobertura</p>
+              <p class="text-sm text-neutral-300 mt-1">Output: versão final aprovada (V4) ou lista de correções</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center">4</span>
+            <div>
+              <p class="font-semibold text-white">Revisão Humana (você)</p>
+              <p class="text-sm text-neutral-400">Aprovação final antes de publicar</p>
+              <p class="text-sm text-neutral-300 mt-1">Verificar se as mudanças fazem sentido no seu contexto específico</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Para skills menos críticas, use apenas o passo 1 (reverse meta prompting). Para skills de alta frequência de uso, execute os 3 passos de agente antes da revisão humana. <strong>O investimento de tempo vale proporcionalmente ao valor que a skill gera.</strong></p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🧭 Quando usar cada um</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Ter os prompts canhão disponíveis não é suficiente — você precisa saber qual usar em cada situação para não desperdiçar tempo e tokens. O diagnóstico correto do problema é o que determina a escolha certa. Uma skill que nunca foi revisada precisa de reverse meta prompting. Uma skill que está falhando em casos específicos precisa de crítica estrutural. Uma skill que parece boa mas tem comportamentos inconsistentes precisa de auditoria técnica. E um par de skills sobrepostas precisa do prompt de consolidação. O framework a seguir transforma esse processo de seleção em uma decisão sistemática baseada em <strong class="text-purple-400">sintomas observáveis</strong> em vez de intuição.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🧭</span> Guia de Decisão: Qual prompt usar?
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white mb-1">Sintoma: "Acabei de criar uma skill nova"</p>
+            <p class="text-purple-400 text-sm">→ Usar: Reverse Meta Prompting</p>
+            <p class="text-neutral-400 text-sm">Toda skill nova se beneficia da perspectiva do executor antes de ser publicada.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white mb-1">Sintoma: "A skill funciona em geral mas falha em algumas situações"</p>
+            <p class="text-purple-400 text-sm">→ Usar: Crítica Estrutural</p>
+            <p class="text-neutral-400 text-sm">Falhas em casos específicos indicam fraquezas estruturais que a crítica adversarial vai encontrar.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white mb-1">Sintoma: "A skill é crítica e quero garantia máxima de qualidade"</p>
+            <p class="text-purple-400 text-sm">→ Usar: Sequência completa (3 prompts em ordem)</p>
+            <p class="text-neutral-400 text-sm">Para skills de alto impacto, o investimento em cobertura total vale o esforço.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white mb-1">Sintoma: "Tenho duas skills que parecem fazer coisas similares"</p>
+            <p class="text-purple-400 text-sm">→ Usar: Prompt de Consolidação</p>
+            <p class="text-neutral-400 text-sm">A sobreposição precisa ser quantificada antes de qualquer decisão de fusão ou manutenção separada.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white mb-1">Sintoma: "Uma skill está se comportando de forma inconsistente"</p>
+            <p class="text-purple-400 text-sm">→ Usar: Auditoria com claude-code-guide</p>
+            <p class="text-neutral-400 text-sm">Inconsistências são sintomas de problemas técnicos que requerem análise especializada.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ O que FAZER</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Diagnosticar antes de escolher o prompt</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Usar o prompt mais simples que resolve o problema</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Escalar para prompts mais pesados se o simples não resolver</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Aplicar revisão humana sempre antes de publicar</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que NÃO fazer</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Usar a sequência completa para toda skill nova</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Escolher o prompt por familiaridade, não por necessidade</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Publicar sem revisão humana após qualquer prompt</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aplicar o prompt de consolidação sem ter testado individualmente</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO FINAL -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Reverse Meta Prompting</strong><span class="text-neutral-400"> — O executor analisa o que precisa para executar melhor; produz melhorias concretas e implementáveis</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Auditoria com agente especializado</strong><span class="text-neutral-400"> — Análise técnica profunda com claude-code-guide para skills críticas</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Crítica estrutural adversarial</strong><span class="text-neutral-400"> — Encontra falhas que feedback positivo nunca revelaria</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Prompt de consolidação</strong><span class="text-neutral-400"> — Sistematiza a fusão de skills sobrepostas sem perda de funcionalidade</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Sequência de 3 prompts</strong><span class="text-neutral-400"> — Para skills críticas: análise ampla → adversarial → técnica → revisão humana</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Guia de decisão</strong><span class="text-neutral-400"> — Escolher o prompt certo pelo sintoma observado, não por familiaridade</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.3 — 🤖 Sub-agentes para Testar: agentes especializados para cobertura de edge cases</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-3-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-3-3.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1.5 — Progressive Disclosure | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">⚠️ Fundamentos</a>
+      <span>/</span>
+      <span class="text-emerald-400">Módulo 1.5</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.5</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">📂 Progressive Disclosure</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">A técnica de estruturar skills em camadas para que o Claude leia apenas o que é relevante ao contexto atual — sem desperdiçar tokens com informação fora de lugar.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">35</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Iniciante</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Tópico 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🧅 O que é Progressive Disclosure</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Progressive disclosure é um princípio de design de informação que diz: <strong class="text-emerald-400">revele apenas o que o usuário (ou o modelo) precisa agora</strong>, e entregue o restante quando for necessário. No contexto de design de interface, isso significa esconder funcionalidades avançadas até que o usuário demonstre necessidade. No contexto de skills para LLMs, isso significa estruturar o arquivo para que o Claude processe apenas as seções relevantes à tarefa atual.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A analogia com menus de restaurante é precisa: você não recebe o manual inteiro de operações da cozinha ao pedir um prato. Você recebe o cardápio, faz um pedido, e a informação relevante flui sob demanda. Uma skill sem disclosure é o equivalente a entregar o manual da cozinha junto com o cardápio — sobrecarregar o modelo com informação que não se aplica ao pedido atual. O resultado é confusão, imprecisão e tokens desperdiçados.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🧅</span> Os Três Níveis de Disclosure
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Nível 1 — Sempre visível:</strong> frontmatter + seção de visão geral; essencial para toda invocação</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Nível 2 — Contextual:</strong> seções de casos de uso específicos; lidas quando o contexto corresponde</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Nível 3 — Sob demanda:</strong> referências técnicas, exemplos avançados; consultadas raramente</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Para cada skill que você tem, identifique mentalmente: qual parte desta skill é relevante em 100% das invocações? Qual parte é relevante em 50%? Qual é relevante em 10%? Essa triagem mental é o primeiro passo para estruturar com disclosure.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📌 Por que Seções Nomeadas Importam</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Seções nomeadas com headers descritivos não são apenas organização visual — elas são a infraestrutura técnica que torna o progressive disclosure possível. Quando uma skill tem seções com títulos como "## Criando um Workflow do Zero", "## Depurando Expressões" e "## Referências de Nodes", <strong class="text-emerald-400">o Claude pode identificar qual seção é relevante sem precisar ler o conteúdo de todas elas</strong>. É a diferença entre uma biblioteca com catálogo e uma com pilhas aleatórias de livros.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A qualidade dos títulos importa tanto quanto a qualidade do conteúdo. Um header genérico como "## Informações" ou "## Detalhes" não comunica nada sobre o conteúdo da seção. Um header específico como "## Como estruturar o frontmatter YAML" ou "## Resolvendo colisões de trigger" é um índice preciso que o Claude usa para navegar a skill de forma eficiente e focada.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">📌</span> Headers que Funcionam vs. que Não Funcionam
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Como criar um workflow do zero no n8n</code></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Diagnóstico de erros em expressões JavaScript</code></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Referência de nodes mais usados</code></span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Informações gerais</code> — não diz nada sobre o conteúdo</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Mais detalhes</code> — sem especificidade</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span><code class="bg-dark-700 px-1 rounded text-sm">## Seção 3</code> — completamente inútil como índice</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Escreva os headers da sua skill como se fossem títulos de artigos que alguém buscaria no Google para resolver um problema específico. Se o título não seria útil como resultado de busca, ele não é descritivo o suficiente para funcionar como header de seção.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🗂️ Estrutura de Seções num Arquivo Skill</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Uma skill bem estruturada segue uma hierarquia de seções onde a informação mais universal fica no topo e a mais específica fica embaixo. O frontmatter (YAML) sempre vem primeiro e contém os metadados de seleção. A seção de visão geral vem logo depois e estabelece o contexto essencial. As seções de casos de uso específicos seguem em ordem de frequência — <strong class="text-emerald-400">os casos mais comuns primeiro, os mais raros por último</strong>.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A profundidade de hierarquia ideal é dois níveis: headers H2 para seções principais e H3 para subseções dentro de cada caso de uso. Hierarquias mais profundas criam complexidade sem benefício proporcional. Menos de dois níveis resulta em seções monolíticas que não se beneficiam do disclosure. Dois níveis é o ponto ideal de equilíbrio para a grande maioria das skills.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🗂️</span> Template de Estrutura com Disclosure
+        </h3>
+        <div class="bg-dark-900/50 rounded-lg p-4 font-mono text-sm text-neutral-300 space-y-1">
+          <p class="text-emerald-400">---</p>
+          <p>name: nome-da-skill</p>
+          <p>description: "O que faz. Use quando... Não usar quando..."</p>
+          <p class="text-emerald-400">---</p>
+          <p class="mt-2 text-emerald-400"># Visão Geral</p>
+          <p>Contexto essencial (sempre lido)</p>
+          <p class="mt-2 text-emerald-400">## Caso de Uso Principal</p>
+          <p>Instruções para o caso mais comum</p>
+          <p class="text-neutral-500">### Sub-caso A</p>
+          <p class="text-neutral-500">### Sub-caso B</p>
+          <p class="mt-2 text-emerald-400">## Caso de Uso Secundário</p>
+          <p>Instruções para casos menos frequentes</p>
+          <p class="mt-2 text-emerald-400">## Exemplos</p>
+          <p>Exemplos concretos (consultados sob demanda)</p>
+          <p class="mt-2 text-emerald-400">## Referências Técnicas</p>
+          <p>Docs, tabelas, referências (raramente lidas)</p>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Use este template como ponto de partida para toda nova skill. Preencha as seções que se aplicam e delete as que não fazem sentido para o seu caso de uso. É mais rápido partir de uma estrutura e remover do que começar em branco.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🔬 Exemplo: Skill com e sem Disclosure</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A diferença entre uma skill monolítica e uma skill com disclosure não é óbvia na leitura do arquivo — ela aparece no uso. Uma skill monolítica força o Claude a processar 800 palavras de instruções para responder uma pergunta simples que precisaria de apenas 50 palavras de contexto. Uma skill com disclosure direciona o Claude para a seção certa imediatamente, reduzindo o processamento desnecessário e aumentando a precisão. <strong class="text-emerald-400">O mesmo conteúdo, estruturado diferente, produz resultados muito melhores.</strong>
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O exemplo mais revelador é quando você pede algo simples e a skill entrega uma resposta que mistura instruções de múltiplos casos de uso — sinal claro de que o modelo está processando seções irrelevantes. Com disclosure bem implementado, o Claude identifica exatamente qual sub-caso se aplica e trabalha apenas com aquele contexto, produzindo respostas mais limpas, mais focadas e mais acionáveis.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Skill Monolítica (sem disclosure)</h4>
+          <div class="bg-dark-900/50 rounded p-3 font-mono text-xs text-neutral-400 space-y-1">
+            <p># Skill de N8N</p>
+            <p>Você é especialista em n8n.</p>
+            <p>Para criar workflows, faça X.</p>
+            <p>Para debugar, verifique Y.</p>
+            <p>Para expressões, use Z.</p>
+            <p>Nodes disponíveis: [lista longa]</p>
+            <p>Exemplos: [exemplos misturados]</p>
+            <p>Dicas: [dicas gerais]</p>
+            <p>Erros comuns: [lista]</p>
+            <p class="text-red-400 mt-2">→ Claude processa tudo sempre</p>
+          </div>
+        </div>
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Skill com Disclosure</h4>
+          <div class="bg-dark-900/50 rounded p-3 font-mono text-xs text-neutral-400 space-y-1">
+            <p class="text-emerald-400"># Visão Geral</p>
+            <p>Expert em n8n. Casos: criar,</p>
+            <p>debugar, expressões.</p>
+            <p class="text-emerald-400 mt-1">## Criando Workflows</p>
+            <p>Instruções específicas para criar</p>
+            <p class="text-emerald-400 mt-1">## Depurando Erros</p>
+            <p>Instruções específicas para debug</p>
+            <p class="text-emerald-400 mt-1">## Expressões JavaScript</p>
+            <p>Instruções específicas para expr.</p>
+            <p class="text-emerald-400 mt-2">→ Claude lê só a seção relevante</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Se você tem uma skill monolítica, não precisa reescrever do zero. Basta identificar os sub-casos de uso, criar seções com headers descritivos para cada um, e mover o conteúdo existente para as seções corretas. A refatoração leva 15-20 minutos e o impacto é imediato.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">⏱️ Quando o Claude Lê Cada Seção</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A leitura seletiva de seções pelo Claude não é aleatória — ela segue heurísticas baseadas no contexto da conversa e nas pistas fornecidas pelo texto do prompt. Seções com títulos que correspondem semanticamente às palavras-chave no prompt do usuário têm maior probabilidade de ser lidas com atenção. <strong class="text-emerald-400">Títulos de seção são, na prática, palavras-chave de relevância</strong> que o Claude usa para priorizar onde concentrar processamento.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Você pode tornar a priorização mais explícita adicionando flags no início das seções: "Leia esta seção quando o usuário pedir para criar um workflow do zero." ou "Esta seção se aplica somente a casos de debug de expressões." Essas instruções explícitas de quando ler eliminam a ambiguidade e garantem comportamento mais previsível, especialmente em skills com muitas seções ou sub-casos similares.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">⏱️</span> Condições que Ativam cada Seção
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Sempre:</strong> frontmatter + visão geral — carregados em toda invocação</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Por correspondência semântica:</strong> seções cujo título corresponde à intenção do prompt</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Por flag explícita:</strong> seções com instrução "Leia quando X" são ativadas pela condição X</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Por referência sequencial:</strong> o Claude pode referenciar seções anteriores ao processar as posteriores</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Para skills críticas onde o comportamento precisa ser altamente previsível, adicione flags explícitas no início de cada seção. Para skills mais simples, títulos descritivos geralmente são suficientes. A flag vale o esforço quando a skill tem 4+ seções com conteúdos que poderiam se confundir.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🧠 Reduzindo Hallucinations com Disclosure</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A relação entre contexto irrelevante e hallucination é direta: quando o Claude processa instruções que não se aplicam ao caso em questão, ele frequentemente tenta "usar" esse contexto de alguma forma — criando conexões forçadas, misturando frameworks de casos diferentes ou elaborando detalhes que não existem para preencher gaps criados pela confusão de contexto. <strong class="text-emerald-400">Contexto focado elimina a oportunidade para hallucinations</strong> porque não há material irrelevante para o modelo inventar conexões.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O efeito é especialmente visível em skills de domínio técnico com muitas regras e exceções. Uma skill de código sem disclosure que descreve múltiplas linguagens e frameworks resulta em respostas que misturam convenções de Python com JavaScript, ou que aplicam regras de uma biblioteca a outra. Com disclosure bem implementado, o Claude trabalha dentro de um espaço de contexto preciso e delimitado, com muito menos margem para erros por confusão de frameworks.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🎯</span> Como Disclosure Reduz Hallucinations
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Menos contexto irrelevante = menos material para o modelo inventar conexões</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Seções focadas reduzem confusão entre frameworks e domínios similares</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Contexto preciso aumenta a confiança do modelo nas próprias respostas</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Menos ambiguidade estrutural resulta em respostas mais determinísticas</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Com Disclosure</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Contexto focado no sub-caso específico</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Sem interferência de regras de outros casos</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Respostas mais precisas e confiáveis</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Sem Disclosure</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Contexto de todos os casos processado simultaneamente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Risco de mistura de regras e frameworks</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Maior taxa de hallucination por confusão de contexto</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo Final -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo 1.5
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Progressive disclosure</strong><span class="text-neutral-400"> — revelar informação em camadas; o Claude processa apenas o que é relevante ao contexto atual</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Seções nomeadas</strong><span class="text-neutral-400"> — headers descritivos funcionam como índice; o Claude navega a skill em vez de lê-la linearmente</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Estrutura padrão</strong><span class="text-neutral-400"> — frontmatter + visão geral + casos de uso + exemplos + referências; dois níveis de hierarquia é o ideal</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Monolítico vs. modular</strong><span class="text-neutral-400"> — o mesmo conteúdo estruturado com disclosure produz respostas significativamente melhores</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Condições de leitura</strong><span class="text-neutral-400"> — semântica do título + flags explícitas determinam quais seções o Claude prioriza</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Redução de hallucination</strong><span class="text-neutral-400"> — contexto focado elimina material irrelevante que o modelo poderia usar para inventar conexões</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.6 — 🚀 Sua Primeira Skill do Zero — Coloque em prática tudo que aprendeu criando uma skill real do início ao fim</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-4.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-1-6.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); }
+    else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

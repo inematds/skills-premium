@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.8 — Auditoria Séria | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span><span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Dicas Técnicas</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Avançado</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">🔧 Dicas Técnicas</a><span>/</span>
+      <span class="text-blue-400">Módulo 2.8</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.8</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔍 Auditoria Séria</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Use o agente claude-code-guide para auditar estruturalmente sua biblioteca de skills e nunca mais deixar problemas acumulando silenciosamente.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">⚠️ Por que auditar</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Skills acumulam problemas silenciosamente. Uma instrução que foi adicionada em um momento de frustração pode conflitar com outra adicionada seis meses depois. Um gatilho que era preciso ficou vago à medida que você criou mais skills no mesmo domínio. Uma seção inteira de uma skill deixou de ser relevante mas nunca foi removida. <strong class="text-blue-400">Sem auditoria, você só descobre esses problemas quando a skill falha de forma visível</strong> — e para cada falha visível, há provavelmente dez falhas sutis que você nunca percebeu.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⚠️</span> Tipos de Problemas que Auditoria Detecta</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <p class="text-neutral-400 text-xs font-semibold uppercase mb-2">Problemas estruturais</p>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Instruções conflitantes dentro da mesma skill</span></div>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Seções sem cabeçalho ou mal organizadas</span></div>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Ausência de seção de avaliação</span></div>
+          </div>
+          <div class="space-y-2">
+            <p class="text-neutral-400 text-xs font-semibold uppercase mb-2">Problemas de gatilho</p>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Gatilho vago ou ausente na primeira frase</span></div>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Conflito de vocabulário com outras skills</span></div>
+            <div class="flex items-start space-x-2 text-sm text-neutral-300"><span class="text-red-400">•</span><span>Descrição longa com truncamento provável</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🤖 O agente claude-code-guide</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O claude-code-guide é um agente especializado pré-configurado com conhecimento detalhado sobre estrutura de skills, boas práticas do Claude Code SDK e padrões de qualidade. Diferente de pedir ao Claude genérico para auditar, <strong class="text-blue-400">o agente tem critérios específicos e consistentes</strong> que tornam a análise comparável entre diferentes skills e entre diferentes sessões. É o equivalente de ter um revisor experiente que aplica o mesmo padrão de qualidade toda vez.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🤖</span> Por que usar o agente especializado</h3>
+        <div class="space-y-3">
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 text-lg">→</span>
+            <p class="text-neutral-300 text-sm"><strong>Critérios padronizados:</strong> a mesma checklist aplicada a toda skill, sem variação por sessão</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 text-lg">→</span>
+            <p class="text-neutral-300 text-sm"><strong>Conhecimento de SDK:</strong> sabe quais práticas funcionam especificamente no Claude Code, não apenas em LLMs em geral</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 text-lg">→</span>
+            <p class="text-neutral-300 text-sm"><strong>Score objetivo:</strong> gera um número comparável (0-100) que permite priorizar quais skills precisam de atenção primeiro</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 text-lg">→</span>
+            <p class="text-neutral-300 text-sm"><strong>Relatório acionável:</strong> não apenas aponta problemas — propõe correções concretas para cada um</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">📋 O prompt de auditoria</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O prompt de auditoria é uma instrução estruturada que você passa ao agente para obter uma análise completa de uma skill. A estrutura do prompt determina a qualidade do relatório — um prompt bem formatado gera diagnóstico preciso com pontuação e prioridades; um prompt vago gera impressões subjetivas sem direção. <strong class="text-blue-400">Use o prompt padrão abaixo e apenas substitua o conteúdo da skill.</strong>
+      </p>
+
+      <!-- IMAGEM: Playbook de poda -->
+      <div class="mb-6 rounded-xl overflow-hidden border border-dark-600">
+        <img src="../../doc/ChatGPT Image 13 de mai. de 2026, 23_59_00.png" alt="Playbook de poda e auditoria de biblioteca de skills" class="w-full object-cover">
+        <div class="bg-dark-800 px-4 py-2 text-xs text-neutral-500 text-center">O ciclo de auditoria: identificar, priorizar, corrigir e validar</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📋</span> O Prompt Padrão de Auditoria</h3>
+        <div class="bg-dark-700/50 rounded-lg p-4 font-mono text-xs text-neutral-300 leading-relaxed">
+          "Você é o agente claude-code-guide, especialista em boas práticas de skills para Claude Code SDK.<br><br>
+          Audite a skill abaixo e retorne um relatório estruturado com:<br><br>
+          SCORE: [0-100] — nota geral de qualidade estrutural<br><br>
+          PROBLEMAS (em ordem de impacto):<br>
+          P1. [problema mais crítico] — impacto: [alto/médio/baixo] — correção: [o que fazer]<br>
+          P2. [segundo problema] — ...<br>
+          P3. [terceiro problema] — ...<br><br>
+          CHECKLIST:<br>
+          [ ] Gatilho na primeira frase da descrição<br>
+          [ ] Seções organizadas com cabeçalhos<br>
+          [ ] Sem instruções conflitantes<br>
+          [ ] Seção de avaliação presente<br>
+          [ ] Sem dead code (instruções obsoletas)<br>
+          [ ] Exemplos de input/output quando necessário<br><br>
+          VERSÃO CORRIGIDA: [skill reescrita com os problemas resolvidos]<br><br>
+          [COLAR CONTEÚDO DA SKILL AQUI]"
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">☑️ Checklist estrutural</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O checklist estrutural são os seis pontos que o agente verifica em toda auditoria. Conhecer esses critérios não serve apenas para entender o relatório — <strong class="text-blue-400">serve para aplicar os critérios você mesmo antes mesmo de chamar o agente</strong>. Um checklist rápido manual antes da auditoria formal reduz o tempo da sessão de auditoria e aumenta a qualidade do relatório (o agente pode focar em problemas menos óbvios).
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-6 flex items-center"><span class="mr-2">☑️</span> Os 6 Pontos do Checklist Estrutural</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">1</span>
+            <div><strong class="text-white">Gatilho na primeira frase</strong><p class="text-neutral-300 text-sm mt-1">A primeira frase da descrição contém "Use quando", "Acione para" ou equivalente com casos de uso específicos?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">2</span>
+            <div><strong class="text-white">Seções organizadas</strong><p class="text-neutral-300 text-sm mt-1">O arquivo tem cabeçalhos claros (## PROIBIDO, ## ENTREVISTA, ## GERAÇÃO, ## AVALIAÇÃO) que organizam o conteúdo?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">3</span>
+            <div><strong class="text-white">Sem instruções conflitantes</strong><p class="text-neutral-300 text-sm mt-1">Há alguma instrução que contradiz outra dentro da mesma skill? (Ex: "seja formal" em um lugar e "use gírias" em outro)</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">4</span>
+            <div><strong class="text-white">Seção de avaliação presente</strong><p class="text-neutral-300 text-sm mt-1">A skill tem a seção ## AVALIAÇÃO com as perguntas de rating ao final?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">5</span>
+            <div><strong class="text-white">Sem dead code</strong><p class="text-neutral-300 text-sm mt-1">Há instruções que nunca são executadas, seções obsoletas ou contexto que não se aplica mais ao uso atual?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">6</span>
+            <div><strong class="text-white">Exemplos quando necessário</strong><p class="text-neutral-300 text-sm mt-1">Para skills complexas, há exemplos de input/output esperado que ancorem o entendimento do modelo?</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🎯 O que fazer com os resultados</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O relatório de auditoria vai listar problemas em várias skills. A tentação é tentar corrigir tudo de uma vez — o que leva à paralisia ou ao trabalho de baixa qualidade. <strong class="text-blue-400">A priorização inteligente maximiza o retorno do tempo investido.</strong> Skills com score baixo e uso frequente são as mais críticas. Skills com score médio podem esperar. Skills pouco usadas com problemas menores podem ser ignoradas até a próxima auditoria trimestral.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Matriz de Priorização</h3>
+        <div class="space-y-3">
+          <div class="flex items-start space-x-3 bg-red-900/20 border border-red-500/20 rounded-lg p-4">
+            <div class="flex-shrink-0 text-center">
+              <p class="text-red-400 font-bold text-sm">Score &lt;60</p>
+              <p class="text-neutral-500 text-xs">+</p>
+              <p class="text-red-400 font-bold text-sm">Uso alto</p>
+            </div>
+            <div><strong class="text-red-400">Prioridade 1 — Corrigir agora</strong><p class="text-neutral-300 text-sm mt-1">Estas skills estão causando problemas hoje. Corrija imediatamente após a auditoria.</p></div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 border border-dark-600 rounded-lg p-4">
+            <div class="flex-shrink-0 text-center">
+              <p class="text-yellow-400 font-bold text-sm">Score 60-80</p>
+              <p class="text-neutral-500 text-xs">+</p>
+              <p class="text-yellow-400 font-bold text-sm">Uso médio</p>
+            </div>
+            <div><strong class="text-yellow-400">Prioridade 2 — Próxima semana</strong><p class="text-neutral-300 text-sm mt-1">Funcionam razoavelmente mas têm potencial significativo de melhoria.</p></div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 border border-dark-600 rounded-lg p-4">
+            <div class="flex-shrink-0 text-center">
+              <p class="text-blue-400 font-bold text-sm">Score &gt;80</p>
+              <p class="text-neutral-500 text-xs">ou</p>
+              <p class="text-blue-400 font-bold text-sm">Uso baixo</p>
+            </div>
+            <div><strong class="text-blue-400">Prioridade 3 — Próxima auditoria</strong><p class="text-neutral-300 text-sm mt-1">Podem esperar. Revisão no próximo ciclo trimestral.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Antes de começar as correções, crie um arquivo de registro da auditoria: data, skills auditadas, scores, problemas identificados, correções aplicadas. Esse registro torna o histórico de evolução da biblioteca visível e comparável entre auditorias.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">📅 Cadência de auditoria</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A auditoria não deve ser um evento de crise — deve ser uma prática de manutenção regular. Sem uma cadência definida, ela sempre vai ser adiada em favor de trabalho mais urgente. <strong class="text-blue-400">Uma cadência em três níveis garante que a biblioteca se mantenha saudável</strong> sem exigir esforço concentrado em momentos difíceis: auditoria completa trimestral, revisão rápida mensal das mais usadas, e correção imediata quando uma skill gera output abaixo de 7.
+      </p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-center">
+            <div>
+              <p class="text-blue-400 font-bold text-xs leading-tight">A cada</p>
+              <p class="text-blue-400 font-bold text-lg leading-tight">3</p>
+              <p class="text-blue-400 font-bold text-xs leading-tight">meses</p>
+            </div>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Auditoria Completa</h4>
+            <p class="text-neutral-300 text-sm">Todas as skills passam pelo prompt de auditoria completo com o agente claude-code-guide. Score calculado para cada skill. Priorização e execução das correções mais críticas.</p>
+            <p class="text-neutral-400 text-xs mt-2">Tempo estimado: 2-3 horas para uma biblioteca de 10-20 skills</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-center">
+            <div>
+              <p class="text-blue-400 font-bold text-xs leading-tight">A cada</p>
+              <p class="text-blue-400 font-bold text-lg leading-tight">1</p>
+              <p class="text-blue-400 font-bold text-xs leading-tight">mês</p>
+            </div>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Revisão Rápida</h4>
+            <p class="text-neutral-300 text-sm">As 3-5 skills mais usadas passam pelo checklist manual de 6 pontos. Ajustes pontuais aplicados. Sem auditoria completa pelo agente.</p>
+            <p class="text-neutral-400 text-xs mt-2">Tempo estimado: 30-45 minutos</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center text-center">
+            <div>
+              <p class="text-blue-400 font-bold text-xs leading-tight">Nota</p>
+              <p class="text-blue-400 font-bold text-lg leading-tight">≤6</p>
+              <p class="text-blue-400 font-bold text-xs leading-tight">imediato</p>
+            </div>
+          </div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Correção Imediata</h4>
+            <p class="text-neutral-300 text-sm">Qualquer skill que recebe nota 6 ou abaixo no sistema de avaliação do módulo anterior é revisada imediatamente com o feedback coletado. Não espera o ciclo programado.</p>
+            <p class="text-neutral-400 text-xs mt-2">Tempo estimado: 15-20 minutos por skill</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🔍</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Auditoria detecta problemas que o uso cotidiano não revela</strong><span class="text-neutral-400"> — degradação silenciosa é real e evitável</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Agente especializado = critérios consistentes</strong><span class="text-neutral-400"> — claude-code-guide aplica o mesmo padrão sempre</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Prompt estruturado gera relatório acionável</strong><span class="text-neutral-400"> — score + problemas + correções + versão revisada</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Checklist de 6 pontos aplicável manualmente</strong><span class="text-neutral-400"> — use antes do agente para agilizar a sessão</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Cadência em 3 níveis mantém a biblioteca saudável</strong><span class="text-neutral-400"> — trimestral completa, mensal rápida, imediata por nota baixa</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Trilha Concluída!</h3>
+          <p class="text-neutral-300">Você completou todas as 8 dicas técnicas da Trilha 2. Você agora sabe como testar, otimizar, personalizar e manter uma biblioteca de skills de alta performance.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-2-7.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Ver Trilha Completa</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

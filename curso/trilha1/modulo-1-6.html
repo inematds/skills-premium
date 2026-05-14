@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1.6 — Sua Primeira Skill do Zero | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">⚠️ Fundamentos</a>
+      <span>/</span>
+      <span class="text-emerald-400">Módulo 1.6</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.6</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🚀 Sua Primeira Skill do Zero</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Coloque em prática tudo que aprendeu nesta trilha. Do caso de uso ao primeiro invoke funcionando — um guia passo a passo para criar, testar e iterar sua primeira skill real.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Iniciante</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Tópico 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🔍 Escolhendo o Caso de Uso Certo</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A escolha do caso de uso para a primeira skill é crítica. Um caso de uso mal escolhido resulta em uma experiência frustrante que pode desanimar antes de você ver o verdadeiro potencial das skills. O caso ideal para começar atende a três critérios simultâneos: <strong class="text-emerald-400">você usa com frequência (pelo menos semanal), requer julgamento contextual genuíno do Claude, e tem um output verificável</strong> — você consegue dizer claramente se a skill funcionou bem ou não.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Pense nas tarefas que você faz com o Claude que você acharia mais chato repetir do zero toda sessão. Provavelmente é algo como "revisão de código com o meu estilo", "rascunho de emails no meu tom de voz", "análise de métricas seguindo meu framework favorito", ou "sessão de planejamento de sprint com minhas convenções de equipe". Essas são candidatas excelentes para uma primeira skill — contextuais, recorrentes e mensuráveis.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🎯</span> Critérios de Seleção do Caso de Uso
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Frequência:</strong> você usa pelo menos uma vez por semana</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Julgamento contextual:</strong> cada execução é diferente, não é sempre o mesmo processo</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Output verificável:</strong> você consegue dizer claramente se o resultado foi bom</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Contexto único seu:</strong> há algo sobre seu estilo, framework ou convenções que o Claude não saberia sem a skill</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">✗</span><span>Evite: casos onde uma automação seria mais eficiente</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">✗</span><span>Evite: casos que já funcionam bem sem skill, sem ganho claro</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Passe 5 minutos listando as 3 tarefas que você mais repete com o Claude. Para cada uma, aplique os critérios acima. A que passar em todos os quatro critérios é a sua primeira skill. Não procure o caso perfeito — procure o caso com os melhores critérios e comece.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📄 Escrevendo o Frontmatter YAML</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O frontmatter YAML é o cabeçalho estruturado que fica no início do arquivo da skill, delimitado por <code class="bg-dark-700 px-1 rounded text-sm">---</code> acima e abaixo. É o contrato formal entre a skill e o sistema de seleção do Claude — onde você declara o nome, a descrição de trigger e outros metadados. <strong class="text-emerald-400">Erros no frontmatter invalidam a skill inteira</strong>, por isso vale dedicar atenção especial aqui antes de escrever qualquer outra coisa.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O campo mais crítico é a descrição. Ela deve incluir em ordem: o que a skill faz em uma frase direta, as condições específicas em que deve ser usada (com palavras-chave concretas), e opcionalmente as condições em que não deve ser usada. Não use linguagem vaga como "quando necessário" ou "em situações relevantes" — especifique os cenários com a maior concretude possível.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">📄</span> Exemplo de Frontmatter Completo
+        </h3>
+        <div class="bg-dark-900/50 rounded-lg p-4 font-mono text-sm text-neutral-300 space-y-1">
+          <p class="text-emerald-400">---</p>
+          <p><span class="text-blue-400">name</span>: <span class="text-yellow-400">code-review-python</span></p>
+          <p><span class="text-blue-400">description</span>: <span class="text-yellow-400">|</span></p>
+          <p class="pl-4">Realiza revisão de código Python seguindo</p>
+          <p class="pl-4">as convenções de estilo da equipe.</p>
+          <p class="pl-4 mt-1">Use quando o usuário pedir revisão de</p>
+          <p class="pl-4">código Python, code review, análise de</p>
+          <p class="pl-4">qualidade de código, PR review ou quando</p>
+          <p class="pl-4">mencionar refatoração de Python.</p>
+          <p class="pl-4 mt-1">Não usar para JavaScript, TypeScript ou</p>
+          <p class="pl-4">outras linguagens.</p>
+          <p class="text-emerald-400">---</p>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Antes de salvar o frontmatter, leia a descrição em voz alta como se estivesse explicando para alguém quando usar esta skill. Se você gaguejar ou precisar elaborar, a descrição precisa de mais clareza. O teste do "em voz alta" é simples e eficaz para identificar ambiguidades.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">✍️ Escrevendo o Corpo da Skill</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O corpo da skill é onde as instruções operacionais vivem — o que o Claude deve fazer quando esta skill for invocada, em que ordem, com quais critérios e com quais referências. A estrutura que mais funciona começa com uma visão geral curta, seguida de seções de casos de uso (usando o disclosure que aprendemos no módulo anterior), exemplos concretos e, se necessário, referências técnicas. <strong class="text-emerald-400">A clareza vence a completude</strong> — é melhor ter instruções claras e incompletas do que instruções completas e confusas.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Escreva o corpo como se estivesse escrevendo para um colega inteligente que nunca trabalhou com você — alguém que precisa entender o contexto, os critérios de qualidade do seu trabalho e os próximos passos esperados após cada tarefa. Inclua exemplos do que é "bom" e do que é "ruim" no seu contexto específico. Esses exemplos são o que transforma uma skill genérica em uma ferramenta que realmente incorpora o seu estilo de trabalho.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">✍️</span> Estrutura do Corpo da Skill
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">1.</span><span><strong>Visão Geral:</strong> 2-3 frases sobre o propósito e contexto da skill</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">2.</span><span><strong>Fase de Entrevista:</strong> as 2-3 perguntas que você quer que o Claude faça antes de agir</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">3.</span><span><strong>Fluxo Principal:</strong> instruções passo a passo para o caso de uso mais comum</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">4.</span><span><strong>Casos Especiais:</strong> variações que exigem tratamento diferente</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">5.</span><span><strong>Reflexão Final:</strong> o que entregar ao concluir, pontos de atenção, próximos passos</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Corpo Eficaz</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Instruções diretas com verbos de ação</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Exemplos concretos do seu contexto</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Seções com progressive disclosure</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Armadilhas Comuns</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Instruções vagas sem critérios de qualidade</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Copiar prompts genéricos sem personalizar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Bloco monolítico sem seções de disclosure</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tópico 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🎮 Primeiro Teste de Invoke</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Depois de salvar o arquivo da skill, o primeiro teste é sempre o invoke direto — você chama a skill explicitamente pelo nome para verificar que o arquivo está sendo lido corretamente e que as instruções fazem sentido na prática. <strong class="text-emerald-400">O invoke direto testa a skill em isolamento</strong>, sem a complexidade do trigger automático. Se falhar aqui, o problema está no corpo da skill ou no formato do arquivo, não no trigger.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O segundo teste é o trigger automático — você descreve um cenário real de uso sem mencionar o nome da skill e observa se o Claude a seleciona. Se a skill foi corretamente selecionada, você verá o Claude mencioná-la ou seguir as instruções específicas que você definiu nela. Se não for selecionada, o problema está na descrição do frontmatter — volte ao tópico 2 e refine as palavras-chave e casos de uso.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🧪</span> Roteiro de Primeiro Teste
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T1</span><span>Digite <code class="bg-dark-700 px-1 rounded text-sm">/nome-da-skill</code> → verifique que o Claude reconhece e executa</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T2</span><span>Execute o caso de uso principal com dados reais → avalie o output</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T3</span><span>Inicie nova sessão, descreva o cenário sem mencionar a skill → verifique trigger automático</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T4</span><span>Pergunte: "Qual skill você está usando?" → confirme que é a certa</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T5</span><span>Teste um cenário que NÃO deveria ativar a skill → confirme ausência de falso positivo</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Documente os prompts de teste (T1 a T5) num arquivo de texto junto com a skill. Toda vez que você editar a skill, reexecute os mesmos 5 testes. Leva 3 minutos e garante que você não quebrou nada ao melhorar outra coisa.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔧 Ajustando com Base no Resultado</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A primeira versão da skill raramente é perfeita — e tudo bem. O objetivo da primeira versão não é perfeição; é funcionar o suficiente para gerar feedback real de uso. Cada iteração adicional usa esse feedback para fazer a skill progressivamente melhor. <strong class="text-emerald-400">O ciclo de iteração rápida é o que transforma uma skill v1 numa skill que você genuinamente ama usar</strong>. Uma iteração bem executada leva menos de 10 minutos.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O processo de iteração eficaz começa com a observação do que ficou aquém. Foi o trigger que não disparou? A entrevista inicial que fez as perguntas erradas? O fluxo principal que perdeu um passo importante? A reflexão final que ficou vaga demais? Identifique o problema específico, localize a seção responsável no arquivo da skill, faça o ajuste mínimo necessário para corrigir — e só aquilo, nada mais. Depois, reteste com o mesmo cenário que falhou.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🔄</span> O Ciclo de Iteração
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">1.</span><span><strong>Observar:</strong> qual parte do output ficou abaixo do esperado?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">2.</span><span><strong>Diagnosticar:</strong> qual seção da skill é responsável por aquele comportamento?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">3.</span><span><strong>Ajustar:</strong> fazer o mínimo necessário para corrigir — não reescrever tudo</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">4.</span><span><strong>Testar:</strong> reexecutar o cenário que falhou com o mesmo prompt</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">5.</span><span><strong>Verificar colaterais:</strong> confirmar que o ajuste não quebrou outras partes</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Resista à tentação de reescrever a skill inteira quando algo não funcionar. Identifique o problema com precisão cirúrgica e faça apenas o ajuste mínimo. Mudanças amplas trazem resultados imprevisíveis — você não sabe o que melhorou o que. Ajustes precisos criam aprendizado claro.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">📖 Exemplo Completo Comentado</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Para fechar o módulo, vamos analisar uma skill real e funcional linha por linha — vendo como cada decisão de design se reflete na estrutura final. Este exemplo é de uma skill de code review para Python, criada para um desenvolvedor que trabalha com FastAPI e tem convenções específicas de nomenclatura e documentação. <strong class="text-emerald-400">Cada seção tem um comentário explicando o raciocínio por trás das escolhas</strong>.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O mais importante ao ler este exemplo é notar o que não está lá tanto quanto o que está. A skill não tenta cobrir todos os cenários possíveis de revisão de código — ela cobre os cenários específicos deste desenvolvedor, com as convenções específicas do projeto dele. Essa especificidade é exatamente o que a torna valiosa. Uma skill genérica de code review seria substituível por qualquer prompt de usuário; esta skill incorpora conhecimento que só este desenvolvedor tem.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">📖</span> Skill Anotada: code-review-python
+        </h3>
+        <div class="bg-dark-900/50 rounded-lg p-4 font-mono text-sm space-y-2">
+          <p class="text-emerald-400">--- <span class="text-neutral-500 font-sans">← abre o frontmatter</span></p>
+          <p><span class="text-blue-400">name</span>: <span class="text-yellow-400">code-review-python</span> <span class="text-neutral-500 font-sans">← nome específico e memorável</span></p>
+          <p><span class="text-blue-400">description</span>: <span class="text-yellow-400">|</span></p>
+          <p class="pl-4 text-neutral-300">Revisão de código Python com foco em</p>
+          <p class="pl-4 text-neutral-300">FastAPI, type hints e Clean Code.</p>
+          <p class="pl-4 text-neutral-500 font-sans text-xs">← o que faz, em uma linha</p>
+          <p class="pl-4 text-neutral-300 mt-2">Use quando: code review, revisão de PR,</p>
+          <p class="pl-4 text-neutral-300">análise de qualidade Python, refatoração.</p>
+          <p class="pl-4 text-neutral-500 font-sans text-xs">← palavras-chave de trigger explícitas</p>
+          <p class="pl-4 text-neutral-300 mt-2">Não usar para JS/TS ou outras linguagens.</p>
+          <p class="pl-4 text-neutral-500 font-sans text-xs">← exclusão para evitar falsos positivos</p>
+          <p class="text-emerald-400">---</p>
+          <p class="mt-4 text-emerald-400"># Visão Geral <span class="text-neutral-500 font-sans">← sempre lida</span></p>
+          <p class="text-neutral-300">Reviso Python no padrão FastAPI da equipe.</p>
+          <p class="text-neutral-300">Foco: type hints, docstrings Google-style,</p>
+          <p class="text-neutral-300">nomenclatura snake_case, sem magic numbers.</p>
+          <p class="mt-2 text-emerald-400">## Entrevista Inicial <span class="text-neutral-500 font-sans">← fase de diagnóstico</span></p>
+          <p class="text-neutral-300">Antes de revisar, pergunte:</p>
+          <p class="text-neutral-300">1. É novo código ou refatoração?</p>
+          <p class="text-neutral-300">2. Tem contexto de performance ou segurança?</p>
+          <p class="mt-2 text-emerald-400">## Revisão de Código <span class="text-neutral-500 font-sans">← fluxo principal</span></p>
+          <p class="text-neutral-300">Analisar em ordem: tipos → estrutura →</p>
+          <p class="text-neutral-300">nomenclatura → docs → edge cases.</p>
+          <p class="mt-2 text-emerald-400">## Reflexão Final <span class="text-neutral-500 font-sans">← fechamento estruturado</span></p>
+          <p class="text-neutral-300">Resumir: pontos fortes, problemas críticos,</p>
+          <p class="text-neutral-300">sugestões de refatoração priorizadas.</p>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Use este exemplo como template para a sua primeira skill. Substitua "Python/FastAPI" pelo domínio do seu caso de uso, mantenha a estrutura (frontmatter + visão geral + entrevista + fluxo + reflexão), e personalize o conteúdo das seções com as suas convenções e critérios específicos. O esqueleto está pronto — só falta o seu conteúdo.</p>
+      </div>
+    </section>
+
+    <!-- Resumo Final -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo 1.6 — e da Trilha 1
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Caso de uso certo</strong><span class="text-neutral-400"> — frequente, contextual, verificável e com algo único do seu contexto</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Frontmatter YAML</strong><span class="text-neutral-400"> — nome slug, descrição com o que faz + quando usar + não usar; é o contrato de trigger</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Corpo estruturado</strong><span class="text-neutral-400"> — visão geral + entrevista + fluxo principal + casos especiais + reflexão final</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Protocolo de teste</strong><span class="text-neutral-400"> — invoke direto + trigger automático + falso positivo + diagnóstico; documente os prompts</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Iteração cirúrgica</strong><span class="text-neutral-400"> — observe → diagnostique → ajuste mínimo → reteste; não reescreva tudo</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Especificidade é o valor</strong><span class="text-neutral-400"> — uma skill genérica é substituível; uma skill com seu contexto real é insubstituível</span></div></div>
+        </div>
+
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6 mb-8">
+          <h3 class="font-bold text-emerald-400 mb-3">🎉 Você completou a Trilha 1 — Fundamentos de Skills!</h3>
+          <p class="text-neutral-300">Você agora tem os fundamentos completos para criar, testar e iterar skills que funcionam de verdade. Nos próximos módulos, você vai aprender a construir skills mais sofisticadas, trabalhar com casos de uso avançados e integrar skills em fluxos de trabalho completos.</p>
+        </div>
+
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próxima Trilha:</h3>
+          <p class="text-neutral-300">Trilha 2 — Skills Avançadas — Patterns complexos, integração com MCP, skills colaborativas e gestão de inventário em escala</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-5.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="../trilha2/index.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próxima Trilha →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); }
+    else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

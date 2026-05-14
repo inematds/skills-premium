@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.2 — Orçamento de Descrição | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span><span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Dicas Técnicas</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Avançado</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">🔧 Dicas Técnicas</a><span>/</span>
+      <span class="text-blue-400">Módulo 2.2</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">📏 Orçamento de Descrição</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Entenda o limite invisível de tokens que o Claude Code usa ao ler descrições de skills e saiba posicionar o gatilho na primeira frase para garantir que ele sempre seja lido.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">✂️ O limite de caracteres invisível</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Existe um detalhe técnico sobre como o Claude Code processa as descrições das skills que a maioria dos usuários desconhece completamente: <strong class="text-blue-400">o modelo não lê a descrição inteira</strong>. Quando o sistema está montando o context window para uma interação, as descrições das skills disponíveis são incluídas de forma compactada. Descrições muito longas são truncadas — o restante simplesmente não chega ao modelo. Você pode ter escrito um parágrafo inteiro explicando quando e como usar a skill, mas se o gatilho está no terceiro parágrafo, o modelo nunca vai vê-lo.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">✂️</span> O Problema do Truncamento</h3>
+        <p class="text-neutral-300 mb-4">Quando múltiplas skills estão disponíveis, o sistema precisa incluir os metadados de todas elas no context window. Para economizar tokens, cada descrição recebe um orçamento limitado. Descrições que excedem esse orçamento são cortadas no limite, sem aviso.</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Quanto mais skills na biblioteca, menor o orçamento de cada uma</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>O truncamento acontece silenciosamente — não há erro ou aviso</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span>Informações no final da descrição são as primeiras a serem cortadas</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">👁️ O que o Claude realmente vê</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando o modelo está decidindo qual skill usar, ele recebe um snapshot compactado dos metadados de cada skill disponível. Para a maioria das skills, isso significa apenas o nome e os primeiros tokens da descrição. <strong class="text-blue-400">O modelo toma a decisão de qual skill acionar com base nesse snapshot</strong>, não com base na leitura completa de cada skill. É por isso que a posição do gatilho na descrição não é uma preferência estética — é uma questão técnica direta de visibilidade.
+      </p>
+
+      <!-- IMAGEM: Truncamento da descrição -->
+      <div class="mb-6 rounded-xl overflow-hidden border border-dark-600">
+        <img src="../../doc/ChatGPT Image 13 de mai. de 2026, 23_53_33.png" alt="Ilustração do truncamento da descrição de skills no Claude Code" class="w-full object-cover">
+        <div class="bg-dark-800 px-4 py-2 text-xs text-neutral-500 text-center">O modelo vê apenas o início de cada descrição ao selecionar qual skill usar</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">👁️</span> A Visão Real do Modelo</h3>
+        <p class="text-neutral-300 mb-4">O processo de seleção de skill funciona em duas fases:</p>
+        <div class="space-y-3">
+          <div class="bg-dark-700/50 rounded-lg p-3">
+            <p class="font-semibold text-blue-400 text-sm mb-1">Fase 1: Seleção por snapshot</p>
+            <p class="text-neutral-300 text-sm">O modelo recebe os primeiros tokens da descrição de cada skill e decide qual usar. Esta fase usa apenas o início da descrição.</p>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-3">
+            <p class="font-semibold text-blue-400 text-sm mb-1">Fase 2: Execução com contexto completo</p>
+            <p class="text-neutral-300 text-sm">Depois de selecionar a skill, o modelo lê o arquivo completo. Mas se a seleção falhar na fase 1, a fase 2 nunca acontece.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🎯 Gatilho sempre no início</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A regra é simples e inegociável: a primeira frase da descrição deve ser o gatilho. Não uma introdução ao contexto, não uma explicação do que a skill faz em geral — o gatilho explícito de quando usar a skill. <strong class="text-blue-400">A primeira frase é o único fragmento que tem garantia de ser lido sempre.</strong> Tudo depois disso é conteúdo de suporte que pode ou não chegar ao modelo dependendo do tamanho da sua biblioteca.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> Fórmulas que Funcionam</h3>
+        <div class="space-y-3">
+          <div class="bg-dark-700/50 rounded-lg p-3">
+            <p class="text-blue-400 font-semibold text-sm mb-1">Fórmula "Use quando"</p>
+            <p class="text-neutral-300 text-sm">"Use quando o usuário precisar escrever copy para redes sociais, e-mail marketing ou páginas de venda."</p>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-3">
+            <p class="text-blue-400 font-semibold text-sm mb-1">Fórmula "Acione para"</p>
+            <p class="text-neutral-300 text-sm">"Acione para análise estrutural de prompts, auditoria de skills ou otimização de gatilhos no Claude Code."</p>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-3">
+            <p class="text-blue-400 font-semibold text-sm mb-1">Fórmula "TRIGGER when"</p>
+            <p class="text-neutral-300 text-sm">"TRIGGER when: user asks to create, edit, or review content for Instagram, LinkedIn, or email campaigns."</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Escreva a primeira frase como se estivesse explicando para um assistente novo quando ele deve usar aquela ferramenta. Seja direto, use verbos de ação e mencione os casos de uso principais.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">📝 Escrevendo descrições enxutas</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Descrição enxuta não significa descrição curta — significa descrição densa. Cada palavra precisa carregar informação que diferencia a skill ou define seu uso. Palavras vagas como "ajuda a", "facilita o processo de", "permite que você" são desperdiçadores de tokens que ocupam espaço sem contribuir com nenhuma informação útil para a decisão de seleção do modelo. <strong class="text-blue-400">Cada palavra que você corta de uma descrição é um token que poderia ser usado para descrever um caso de uso adicional.</strong>
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ O que FAZER</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Gatilho na primeira frase</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Verbos diretos: "gera", "analisa", "cria"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Casos de uso específicos e concretos</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Domínios exclusivos desta skill</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que EVITAR</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Esta skill foi criada para..."</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Ajuda você a melhorar seus textos"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Contexto histórico ou motivação</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Repetir o nome da skill na descrição</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔬 Testando o truncamento</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Você não precisa confiar apenas na teoria — é possível verificar empiricamente o que o Claude está recebendo das suas descrições. O método é simples: abra uma sessão nova e pergunte diretamente ao Claude o que ele sabe sobre suas skills disponíveis. <strong class="text-blue-400">A resposta revela o snapshot que ele recebeu</strong>, expondo qualquer truncamento ou vocabulário que chegou de forma diferente do que você escreveu. É o equivalente ao console.log para desenvolvedores — a inspeção direta do estado.
+      </p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Abra uma sessão limpa</h4>
+            <p class="text-neutral-300 text-sm">Inicie uma nova sessão do Claude Code sem histórico anterior para garantir que o snapshot seja puro.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Pergunte sobre as skills</h4>
+            <p class="text-neutral-300 text-sm">Digite: "Quais skills você tem disponíveis e o que cada uma faz?" — o Claude vai descrever o que recebeu.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Compare com o original</h4>
+            <p class="text-neutral-300 text-sm">Abra o arquivo da skill e compare o que o Claude descreveu com o que você escreveu. Divergências indicam truncamento.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Se o Claude não conseguir descrever com precisão o gatilho da sua skill após essa pergunta, é um sinal claro de que a descrição não está chegando de forma clara. Revise a primeira frase e repita o teste.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🔄 Exemplos antes e depois</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A diferença entre uma descrição que funciona e uma que falha raramente é dramática — é sutil. Por isso exemplos concretos são tão valiosos aqui. <strong class="text-blue-400">Ver o padrão errado e o padrão certo lado a lado cria um reconhecimento imediato</strong> que você vai aplicar instintivamente nas suas próprias skills. Os exemplos abaixo são baseados em padrões reais observados em bibliotecas de skills de usuários do Claude Code.
+      </p>
+      <div class="space-y-6 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+          <p class="text-red-400 font-semibold text-sm mb-3">❌ ANTES — Descrição que falha</p>
+          <div class="bg-dark-700/50 rounded-lg p-4 mb-3 font-mono text-sm text-neutral-300">
+            "Esta skill foi desenvolvida para auxiliar usuários que precisam criar conteúdo para suas redes sociais. Ela usa as melhores práticas de copywriting digital para gerar textos engajantes e persuasivos. Acione quando você quiser criar um post para Instagram, Facebook, LinkedIn ou qualquer outra rede social."
+          </div>
+          <p class="text-neutral-400 text-sm">Problema: o gatilho está na terceira frase. As duas primeiras frases são contexto desnecessário que ocupa tokens sem informação de disparo.</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+          <p class="text-blue-400 font-semibold text-sm mb-3">✅ DEPOIS — Descrição otimizada</p>
+          <div class="bg-dark-700/50 rounded-lg p-4 mb-3 font-mono text-sm text-neutral-300">
+            "Use para criar posts para Instagram, LinkedIn, Facebook e e-mail marketing. Gera copy persuasivo com estrutura AIDA, CTA explícito e tom alinhado à voz do usuário. Solicita contexto sobre produto, público e objetivo antes de gerar."
+          </div>
+          <p class="text-neutral-400 text-sm">Resultado: gatilho na primeira frase, casos de uso específicos, diferencial da skill (coleta contexto), tudo em 3 frases densas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">📏</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Truncamento é real e silencioso</strong><span class="text-neutral-400"> — o Claude não avisa quando corta sua descrição</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Só o início tem garantia de ser lido</strong><span class="text-neutral-400"> — especialmente com bibliotecas grandes</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Gatilho na primeira frase é inegociável</strong><span class="text-neutral-400"> — fórmulas "Use quando" / "Acione para" funcionam</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Descrição densa &gt; descrição longa</strong><span class="text-neutral-400"> — cada palavra deve carregar informação útil</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Teste de inspeção valida o que chegou</strong><span class="text-neutral-400"> — pergunte ao Claude o que ele sabe sobre suas skills</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.3 — 🎤 Faça a Skill Perguntar: elimine o loop morto com entrevistas antes de gerar o output</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-2-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-2-3.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

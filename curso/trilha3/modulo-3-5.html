@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.5 — Stack Lean de Skills | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Engenharia</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">No Expert</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">🧪 No Expert</a>
+      <span>/</span>
+      <span class="text-purple-400">Módulo 3.5</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.5</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">📊 Stack Lean de Skills</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Construir e manter uma biblioteca enxuta que só contém skills que geram valor real — e saber quando cortar o que não serve mais.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Expert</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Gestão</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🗺️ O inventário de skills</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Você não pode gerenciar o que não conhece. E surpreendentemente, a maioria das pessoas não conhece completamente o que tem na própria biblioteca de skills — skills criadas há meses e esquecidas, duplicatas com nomes diferentes, skills que evoluíram tanto que o nome original não descreve mais o que fazem. O inventário é a operação fundamental que transforma uma coleção caótica em uma biblioteca gerenciável. Ele não precisa ser sofisticado: uma lista com nome, propósito de uma linha, frequência de uso estimada e data de última atualização já é suficiente para revelar <strong class="text-purple-400">padrões que eram invisíveis antes</strong> — skills subutilizadas, clusters de redundância, gaps de cobertura.
+      </p>
+
+      <!-- Imagem de referência após tópico 1 -->
+      <div class="mb-6 rounded-xl overflow-hidden border border-dark-600">
+        <img src="../../doc/ChatGPT Image 13 de mai. de 2026, 23_59_00.png" alt="Playbook de poda de skills — visão estratégica da stack lean" class="w-full object-cover" onerror="this.closest('.mb-6').style.display='none'">
+        <div class="bg-dark-800 px-4 py-2 text-xs text-neutral-500">Playbook de poda — uma visão estratégica do que manter vs. o que cortar</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📋</span> Campos essenciais do inventário
+        </h3>
+        <div class="bg-dark-900/50 rounded-lg p-4 text-sm font-mono">
+          <p class="text-purple-400 mb-2">| Skill | Propósito | Freq. Estimada | Última Atualização | Status |</p>
+          <p class="text-neutral-300">| session-reflection | Reflexão pós-sessão | Alta | 2026-04-10 | Ativo |</p>
+          <p class="text-neutral-300">| quick-audit | Auditoria rápida | Média | 2026-01-05 | Revisar |</p>
+          <p class="text-neutral-300">| old-planning | Planejamento semanal | Baixa | 2025-11-20 | Candidato a corte |</p>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Faça o inventário em uma única sessão de 30 minutos, sem procrastinar. Liste tudo, mesmo as skills que você "provavelmente vai usar algum dia". <strong>A honestidade no inventário é o que torna toda a gestão subsequente possível.</strong> Inventários parciais são piores do que inventários inexistentes.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">⚖️ Critérios de corte</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        "Eu posso precisar disso algum dia" é o maior inimigo de uma biblioteca lean. Esse raciocínio, aplicado consistentemente, transforma qualquer acervo em um depósito de itens que nunca são usados mas ocupam atenção e criam ruído de navegação. Critérios objetivos de corte resolvem esse problema removendo a emoção da decisão. Quando uma skill não atinge o threshold de uso, o critério de corte é acionado automaticamente — sem culpa, sem justificativas elaboradas, sem "mas e se". Os critérios devem ser <strong class="text-purple-400">definidos antes da análise</strong>, não depois, para evitar que você mova os postes inconscientemente para salvar skills que você criou mas nunca usa.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">⚖️</span> Framework de critérios
+        </h3>
+        <div class="space-y-3">
+          <div class="bg-dark-700 rounded-lg p-4">
+            <p class="font-semibold text-purple-400 text-sm mb-1">Critério 1: Frequência de uso</p>
+            <p class="text-neutral-300 text-sm">Usada pelo menos 1x nas últimas 4 semanas? Se não, é candidata à revisão. Se não foi usada em 90 dias, é candidata ao corte.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4">
+            <p class="font-semibold text-purple-400 text-sm mb-1">Critério 2: Valor percebido</p>
+            <p class="text-neutral-300 text-sm">Quando usada, o resultado é claramente melhor do que sem a skill? Se a resposta for "mais ou menos", a skill não está cumprindo seu propósito.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4">
+            <p class="font-semibold text-purple-400 text-sm mb-1">Critério 3: Cobertura por outra skill</p>
+            <p class="text-neutral-300 text-sm">A funcionalidade está coberta por outra skill mais atualizada ou mais completa? Se sim, é redundante e deve ser removida.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4">
+            <p class="font-semibold text-purple-400 text-sm mb-1">Critério 4: Custo de manutenção</p>
+            <p class="text-neutral-300 text-sm">A skill requer atualização frequente para continuar relevante, com baixo uso? ROI negativo — cortar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Defina os thresholds numericamente antes de aplicar: "corto qualquer skill com menos de 1 uso em 60 dias E valor percebido abaixo de 3/5". <strong>Números específicos eliminam a subjetividade</strong> e tornam o processo repetível sem depender de disposição mental no dia da revisão.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🗑️ Quando deletar</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Deletar uma skill que você criou parece difícil — você investiu tempo nela, ela representa trabalho real. Mas manter uma skill morta tem um custo oculto: ela ocupa espaço de atenção, cria confusão sobre o que está ativo e disponível, e pode ser acionada inadvertidamente produzindo resultados desatualizados. O conceito de "skill zumbi" — skills que existem mas não são mais usadas por ninguém — descreve exatamente esse problema. Deletar com consciência, precedido de um arquivamento, é um ato de curadoria que melhora a qualidade da biblioteca inteira. O segredo está no processo: <strong class="text-purple-400">arquivar antes de deletar</strong>, e aguardar 30 dias para confirmar que nada foi perdido antes de remover o arquivo.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🚨</span> Sinais inequívocos de que é hora de deletar
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Skill zumbi:</strong> Não foi usada em mais de 90 dias e não há uso previsto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Cobertura total:</strong> Outra skill mais nova cobre exatamente o mesmo escopo com melhor qualidade</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Trigger obsoleto:</strong> A condição de acionamento não existe mais no seu fluxo de trabalho atual</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Qualidade irrecuperável:</strong> A skill seria mais rápida de reescrever do zero do que corrigir</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span><strong>Contexto desaparecido:</strong> O projeto ou contexto para o qual a skill foi criada não existe mais</span></li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Processo correto de remoção</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">1.</span><span>Arquivar na pasta archive/AAAA-MM</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">2.</span><span>Registrar no CHANGELOG com motivo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">3.</span><span>Aguardar 30 dias com o arquivo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">4.</span><span>Deletar o arquivo se não houve necessidade</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que nunca fazer</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Deletar sem arquivar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Deletar sem registrar no CHANGELOG</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Deletar várias skills de uma vez sem validar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Deletar por pressa sem passar pelos critérios</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Antes de deletar, pergunte: "Se eu precisar dessa skill daqui a 6 meses, quanto tempo levaria para recriar do zero?" Se a resposta for "menos de 15 minutos", delete sem culpa. Se for mais do que isso, <strong>arquive por 90 dias antes de deletar permanentemente.</strong></p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">📅 A regra do uso real</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A regra dos 30 dias é a ferramenta mais objetiva para distinguir skills ativas de skills que você acha que vai usar. Qualquer skill não utilizada nos últimos 30 dias merece ser questionada — não deletada automaticamente, mas questionada com honestidade: por que não foi usada? O trigger está ruim? A skill foi substituída por um processo manual? Você simplesmente esqueceu que ela existe? Cada resposta leva a uma ação diferente: trigger ruim → corrigir, substituída → consolidar, esqueceu → melhorar visibilidade. A regra dos 30 dias não é sobre deletar indiscriminadamente — é sobre <strong class="text-purple-400">forçar uma resposta honesta</strong> sobre o valor real de cada skill.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🌳</span> Árvore de decisão: skill não usada em 30 dias
+        </h3>
+        <div class="space-y-3">
+          <div class="bg-dark-700 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm">Por que não foi usada?</p>
+          </div>
+          <div class="ml-4 space-y-2">
+            <div class="bg-purple-900/20 rounded-lg p-3 border-l-2 border-purple-500">
+              <p class="text-sm"><span class="font-semibold text-purple-400">Trigger ruim</span> → Corrigir a description e testar por mais 30 dias</p>
+            </div>
+            <div class="bg-purple-900/20 rounded-lg p-3 border-l-2 border-purple-500">
+              <p class="text-sm"><span class="font-semibold text-purple-400">Funcionalidade coberta por outra</span> → Candidata a consolidação ou remoção</p>
+            </div>
+            <div class="bg-purple-900/20 rounded-lg p-3 border-l-2 border-purple-500">
+              <p class="text-sm"><span class="font-semibold text-purple-400">Contexto específico não ocorreu</span> → Skill sazonal, manter com flag de revisão na data relevante</p>
+            </div>
+            <div class="bg-purple-900/20 rounded-lg p-3 border-l-2 border-purple-500">
+              <p class="text-sm"><span class="font-semibold text-purple-400">Esqueceu que existe</span> → Melhorar visibilidade ou integrar em outra skill</p>
+            </div>
+            <div class="bg-red-900/20 rounded-lg p-3 border-l-2 border-red-500">
+              <p class="text-sm"><span class="font-semibold text-red-400">Não tem motivo bom para existir</span> → Arquivar e deletar em 30 dias</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Aplicar a regra dos 30 dias conscientemente revela uma verdade incômoda: <strong>a maioria das skills "que eu vou usar algum dia" nunca são usadas</strong>. A regra não é cruel — é honesta. E a honestidade é o que torna a biblioteca lean eficaz ao invés de apenas pequena.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔄 Cadência de revisão</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Revisões de biblioteca só acontecem quando as coisas estão visivelmente ruins — e nesse ponto, o acúmulo é tão grande que o processo de limpeza se torna penoso e sujeito a erros. A cadência regular resolve isso distribuindo o trabalho ao longo do tempo, mantendo a biblioteca sempre em estado saudável sem grandes esforços concentrados. O sistema de três cadências — semanal, mensal, trimestral — é calibrado para o nível de detalhe adequado a cada frequência: a revisão semanal é superficial e rápida (sinais de alerta), a mensal é de qualidade (cada skill individualmente), e a trimestral é estratégica (visão da biblioteca como um todo). <strong class="text-purple-400">A soma das três é menos trabalho</strong> do que uma auditoria semestral, e produz resultados muito melhores.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📅</span> Sistema de 3 cadências
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <p class="font-semibold text-white">Revisão semanal</p>
+              <span class="text-xs text-purple-400 bg-purple-500/20 px-2 py-1 rounded-full">5 minutos</span>
+            </div>
+            <p class="text-neutral-400 text-sm">Verificar: houve alguma skill com comportamento inesperado? Alguma skill nova deve ser criada com base na semana? Algum sinal de redundância emergente?</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <p class="font-semibold text-white">Revisão mensal</p>
+              <span class="text-xs text-purple-400 bg-purple-500/20 px-2 py-1 rounded-full">30 minutos</span>
+            </div>
+            <p class="text-neutral-400 text-sm">Percorrer todas as skills ativas, aplicar regra dos 30 dias, corrigir triggers problemáticos, identificar candidatos a consolidação, atualizar o inventário.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <p class="font-semibold text-white">Auditoria trimestral</p>
+              <span class="text-xs text-purple-400 bg-purple-500/20 px-2 py-1 rounded-full">2 horas</span>
+            </div>
+            <p class="text-neutral-400 text-sm">Visão estratégica: a biblioteca está cobrindo os casos de uso que realmente importam? Há gaps? Há sobreposições significativas? Os critérios de corte ainda fazem sentido?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Coloque as revisões na agenda como compromissos fixos, não como "quando tiver tempo". <strong>Revisões que dependem de disponibilidade não acontecem.</strong> A revisão semanal pode ser integrada na sua rotina de fechamento de semana — 5 minutos após a retrospectiva semanal.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">📈 Métricas de uma stack saudável</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Uma biblioteca pode ser pequena e ainda assim ruim — poucas skills, mas todas desatualizadas ou com triggers confusos. E pode ser grande e ainda assim saudável — muitas skills, todas atualizadas e com uso ativo. O tamanho da biblioteca não é o indicador correto de saúde. Os indicadores corretos medem o que realmente importa: uso ativo, qualidade do trigger, atualização recente e ausência de redundância. Com as métricas certas em mãos, você consegue responder objetivamente "minha biblioteca de skills está melhorando ou piorando?" — uma pergunta simples que a maioria das pessoas não consegue responder porque não tem <strong class="text-purple-400">dados para embasar a resposta</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📊</span> Dashboard mínimo de saúde da biblioteca
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-purple-400 font-semibold text-sm mb-1">Taxa de uso ativo</p>
+            <p class="text-neutral-300 text-sm">Skills usadas nas últimas 4 semanas / total de skills</p>
+            <p class="text-neutral-400 text-xs mt-1">Meta: acima de 70%</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-purple-400 font-semibold text-sm mb-1">Índice de freshness</p>
+            <p class="text-neutral-300 text-sm">Skills atualizadas nos últimos 90 dias / total ativo</p>
+            <p class="text-neutral-400 text-xs mt-1">Meta: acima de 60%</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-purple-400 font-semibold text-sm mb-1">Índice de redundância</p>
+            <p class="text-neutral-300 text-sm">Pares de skills com sobreposição > 50% / total</p>
+            <p class="text-neutral-400 text-xs mt-1">Meta: abaixo de 10%</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="text-purple-400 font-semibold text-sm mb-1">Clareza de trigger</p>
+            <p class="text-neutral-300 text-sm">Skills com trigger inequívoco / total ativo</p>
+            <p class="text-neutral-400 text-xs mt-1">Meta: acima de 90%</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Não tente calcular todas as métricas com precisão no primeiro ciclo. Comece pela taxa de uso ativo — é a mais simples e a mais reveladora. <strong>Uma taxa abaixo de 50% é sinal de que a biblioteca tem mais lixo do que valor</strong>, e deve ser o gatilho para uma revisão profunda imediata.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Inventário completo</strong><span class="text-neutral-400"> — Lista com propósito, frequência e data de atualização transforma caos em visibilidade</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Critérios objetivos de corte</strong><span class="text-neutral-400"> — Frequência, valor percebido, cobertura e ROI de manutenção</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Processo de remoção responsável</strong><span class="text-neutral-400"> — Arquivar → aguardar 30 dias → deletar com registro</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Regra dos 30 dias</strong><span class="text-neutral-400"> — Força uma resposta honesta sobre o valor real de cada skill parada</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">3 cadências de revisão</strong><span class="text-neutral-400"> — Semanal (5 min), mensal (30 min), trimestral (2h) para manutenção contínua</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Dashboard de métricas</strong><span class="text-neutral-400"> — Taxa de uso, freshness, redundância e clareza de trigger</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.6 — 🔁 Skills que se Melhoram Sozinhas: o loop de auto-iteração embutido</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-3-4.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-3-6.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

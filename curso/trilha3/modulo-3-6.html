@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.6 — Skills Auto-iterativas | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Engenharia</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">No Expert</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">🧪 No Expert</a>
+      <span>/</span>
+      <span class="text-purple-400">Módulo 3.6</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.6</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔁 Skills que se Melhoram Sozinhas</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Como construir o loop de melhoria contínua embutido na própria skill — reflexão, avaliação e auto-iteração integradas ao fluxo de execução.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">45</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Expert</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Avançado</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">💡 O conceito de skill auto-iterativa</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A maioria das skills é estática: você cria, usa, e ela permanece exatamente como foi criada até que alguém decida melhorá-la manualmente. Uma skill auto-iterativa quebra esse paradigma. Ao final de cada execução, ela coleta feedback sobre seu próprio desempenho — o que funcionou, o que gerou fricção, o que poderia ter sido melhor — e propõe modificações concretas para a próxima versão. Com aprovação humana, essas modificações são aplicadas e a skill evolui. Ao longo de dezenas de execuções, esse ciclo acumula um nível de refinamento que seria impossível alcançar manualmente. A skill aprende com cada uso e se torna progressivamente mais adaptada ao contexto específico onde opera — um <strong class="text-purple-400">ativo inteligente que cresce com você</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🔁</span> O ciclo de auto-iteração
+        </h3>
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="bg-dark-800 rounded-lg p-3 text-center flex-1 min-w-24">
+            <p class="text-purple-400 font-bold text-sm">Execução</p>
+            <p class="text-neutral-400 text-xs">Skill roda normalmente</p>
+          </div>
+          <span class="text-purple-400 font-bold">→</span>
+          <div class="bg-dark-800 rounded-lg p-3 text-center flex-1 min-w-24">
+            <p class="text-purple-400 font-bold text-sm">Reflexão</p>
+            <p class="text-neutral-400 text-xs">Analisa o que funcionou</p>
+          </div>
+          <span class="text-purple-400 font-bold">→</span>
+          <div class="bg-dark-800 rounded-lg p-3 text-center flex-1 min-w-24">
+            <p class="text-purple-400 font-bold text-sm">Proposta</p>
+            <p class="text-neutral-400 text-xs">Sugere melhorias</p>
+          </div>
+          <span class="text-purple-400 font-bold">→</span>
+          <div class="bg-dark-800 rounded-lg p-3 text-center flex-1 min-w-24">
+            <p class="text-purple-400 font-bold text-sm">Aprovação</p>
+            <p class="text-neutral-400 text-xs">Humano valida</p>
+          </div>
+          <span class="text-purple-400 font-bold">→</span>
+          <div class="bg-dark-800 rounded-lg p-3 text-center flex-1 min-w-24">
+            <p class="text-purple-400 font-bold text-sm">Evolução</p>
+            <p class="text-neutral-400 text-xs">Skill V+1 publicada</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Skills ideais para auto-iteração</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Alta frequência de uso (diária/semanal)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Output avaliável objetivamente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Propósito estável (não muda com frequência)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Execuções relativamente uniformes</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Skills que NÃO se beneficiam</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Uso raro (mensal ou menos)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Cada execução é radicalmente diferente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Output altamente subjetivo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Propósito em constante mudança</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Comece com apenas 1 skill auto-iterativa. Escolha a que você usa com mais frequência e cujo output você consegue avaliar claramente. <strong>Aprenda o processo com uma skill antes de escalar para muitas.</strong> A auto-iteração mal configurada degrada skills rapidamente.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🧠 Bake-in de reflexão</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A seção de reflexão embutida é o componente mais importante da skill auto-iterativa. Ela não é uma adição opcional ao final da skill — é uma seção estruturada com perguntas específicas que guiam o agente a analisar a execução de forma consistente e objetiva. A chave é que as perguntas sejam suficientemente específicas para produzir insights acionáveis, mas não tão prescritivas que impeçam a identificação de problemas inesperados. Um bake-in de reflexão bem projetado produz 3 categorias de informação: o que funcionou excepcionalmente (para amplificar), o que criou fricção (para corrigir) e o que estava faltando (para adicionar). Essas informações, acumuladas ao longo de múltiplas execuções, revelam <strong class="text-purple-400">padrões que uma única execução nunca revelaria</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🧠</span> Estrutura do bake-in de reflexão
+        </h3>
+        <p class="text-neutral-300 mb-4">A seção de reflexão deve ser adicionada ao final da skill, após o output principal, com estas 4 partes:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">1</span><span><strong>Avaliação de execução:</strong> O que funcionou bem nessa execução específica?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">2</span><span><strong>Identificação de fricção:</strong> O que tornou essa execução mais difícil do que deveria ser?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">3</span><span><strong>Gaps de cobertura:</strong> Houve algo que a skill deveria ter feito mas não fez?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">4</span><span><strong>Proposta de melhoria:</strong> Uma mudança concreta que tornaria a próxima execução melhor</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📄 Exemplo de seção de reflexão para incluir em qualquer skill</h3>
+        <pre><code class="text-sm text-neutral-300">---
+## REFLEXÃO AUTOMÁTICA (incluir ao final de cada execução)
+
+Após completar o output principal acima, analise esta execução:
+
+### O que funcionou bem nessa execução?
+[Identificar 1-2 aspectos que fluíram naturalmente e produziram
+resultados de alta qualidade]
+
+### O que criou fricção ou poderia ser mais eficiente?
+[Identificar 1-2 pontos onde a execução foi mais difícil do que
+esperado, ou onde o output poderia ter sido melhor com informação adicional]
+
+### Houve algo fora do escopo desta skill que deveria estar incluído?
+[Identificar se algum caso de uso relevante não está coberto pelas
+instruções atuais]
+
+### Proposta de melhoria para próxima versão:
+[Uma mudança específica e concreta nas instruções da skill que tornaria
+a próxima execução melhor. Incluir: o que mudar, onde na skill, por quê]
+
+---
+*Esta reflexão deve ser apresentada ao usuário para aprovação antes
+de qualquer modificação na skill.*</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">A reflexão só é útil se for específica. "Funcionou bem" não é um insight. "A fase 2 de coleta de contexto produziu informações suficientes para o output sem precisar de follow-up" é um insight acionável. <strong>Treine a skill para ser específica nas reflexões</strong>, ou os resultados serão genéricos e inúteis.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">⭐ Bake-in de avaliação</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A avaliação numérica complementa a reflexão qualitativa adicionando uma dimensão quantitativa que permite rastrear tendências ao longo do tempo. Uma skill com rating médio de 4.2 nas últimas 10 execuções e descendo progressivamente para 3.8 está sinalizando deterioração — e esse sinal é muito mais claro do que qualquer análise qualitativa individual. Para que o sistema funcione, os critérios de avaliação precisam ser objetivos e pré-definidos. Uma avaliação de "5 porque me senti bem com o resultado" é inútil; uma avaliação de "4 porque o contexto coletado foi suficiente mas o format de output precisou de ajuste manual" é um dado que orienta melhorias. O bake-in de avaliação transforma cada execução em um <strong class="text-purple-400">ponto de dados sobre a qualidade da skill</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">⭐</span> Critérios objetivos de rating
+        </h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-start space-x-3 bg-dark-800/50 rounded p-3">
+            <span class="text-yellow-400 font-bold">5</span>
+            <span class="text-neutral-300">Output de alta qualidade sem ajustes, contexto suficiente coletado, fluxo sem fricção</span>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-800/50 rounded p-3">
+            <span class="text-yellow-400 font-bold">4</span>
+            <span class="text-neutral-300">Output bom com ajuste menor, ou coleta de contexto com uma pergunta de follow-up adicional</span>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-800/50 rounded p-3">
+            <span class="text-yellow-400 font-bold">3</span>
+            <span class="text-neutral-300">Output utilizável mas com lacunas notáveis, ou processo que precisou de intervenção manual significativa</span>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-800/50 rounded p-3">
+            <span class="text-yellow-400 font-bold">2</span>
+            <span class="text-neutral-300">Output parcialmente correto, exigiu retrabalho substancial ou coleta de contexto insuficiente</span>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-800/50 rounded p-3">
+            <span class="text-red-400 font-bold">1</span>
+            <span class="text-neutral-300">Output incorreto ou inutilizável, skill falhou no propósito principal nessa execução</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Registre os ratings numa planilha simples com data, skill e rating. <strong>Após 10 execuções você terá dados suficientes para identificar tendências</strong>. Um rating médio abaixo de 3.5 por 3 execuções consecutivas é sinal de que a skill precisa de atenção imediata.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">♻️ O loop de melhoria contínua</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O loop de melhoria contínua é o sistema que conecta reflexão, avaliação e evolução da skill num ciclo fechado. A distinção crítica em relação a um processo ad hoc de melhoria é que o loop tem etapas definidas, um papel claro para o humano, e critérios para decidir quando atualizar e quando não atualizar. O humano não está fora do loop — está em um ponto específico do loop (aprovação) que é insubstituível porque adiciona julgamento contextual que o agente não tem. Uma melhoria que parece razoável para o agente pode ser problemática por razões que só o humano conhece. O loop perfeito é aquele em que <strong class="text-purple-400">o agente propõe e o humano decide</strong> — nunca o oposto, e nunca o agente decidindo sozinho.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Acúmulo de reflexões</h4>
+            <p class="text-sm text-neutral-400 mb-1">Após 3-5 execuções</p>
+            <p class="text-neutral-300 text-sm">Coletar as reflexões das últimas execuções e identificar padrões recorrentes. Uma única reflexão pode ser atípica; um padrão em 3+ reflexões é um sinal real.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Síntese de melhorias</h4>
+            <p class="text-sm text-neutral-400 mb-1">Consolidar os padrões em propostas</p>
+            <p class="text-neutral-300 text-sm">Transformar os padrões identificados em propostas de mudança concretas e específicas — não "melhorar a coleta de contexto" mas "adicionar a pergunta X na fase 2".</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Revisão humana</h4>
+            <p class="text-sm text-neutral-400 mb-1">O humano decide o que aplicar</p>
+            <p class="text-neutral-300 text-sm">Avaliar cada proposta: faz sentido no contexto maior? Há efeitos colaterais não considerados? Aprovar ou rejeitar com justificativa.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">4</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Aplicação e validação</h4>
+            <p class="text-sm text-neutral-400 mb-1">Skill V+1 publicada e testada</p>
+            <p class="text-neutral-300 text-sm">Aplicar as mudanças aprovadas, publicar a nova versão, e monitorar as próximas 3 execuções para confirmar que as melhorias funcionaram como esperado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Defina uma frequência mínima de atualização: a skill deve ser atualizada no máximo 1x por semana, independente de quantas reflexões chegaram. <strong>Atualizações muito frequentes criam instabilidade</strong> e impossibilitam o aprendizado sobre o impacto de cada mudança.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">⚠️ Limites e riscos</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Auto-iteração sem guardrails pode destruir uma skill que antes funcionava perfeitamente. Os riscos são reais e específicos. O mais insidioso é o drift de propósito: a skill gradualmente incorpora comportamentos para além do seu propósito original, e depois de 20 iterações é algo completamente diferente do que foi criada para ser. Outro risco é a complexidade crescente: cada iteração adiciona uma instrução, e após 15 iterações a skill tem instruções demais e performance abaixo do que tinha com 5. E há o viés de auto-avaliação: o agente tende a dar ratings altos para execuções que parecem bem-sucedidas superficialmente, mas que na prática produziram outputs que o humano precisou ajustar. Entender esses riscos é o que permite <strong class="text-purple-400">usar auto-iteração com segurança</strong>, não evitá-la.
+      </p>
+
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center">
+          <span class="mr-2">⚠️</span> Os 4 riscos principais e como mitigar
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <p class="font-semibold text-white mb-1">Drift de propósito</p>
+            <p class="text-neutral-400 text-sm mb-1">A skill gradualmente expande seu escopo além do propósito original.</p>
+            <p class="text-purple-400 text-sm">Mitigação: Comparar a skill atual com a V1 a cada 10 iterações. Se o propósito central mudou, fazer um reset.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Complexidade crescente</p>
+            <p class="text-neutral-400 text-sm mb-1">Cada iteração adiciona instruções sem remover as que ficaram obsoletas.</p>
+            <p class="text-purple-400 text-sm">Mitigação: Para cada instrução adicionada, verificar se alguma existente pode ser removida ou simplificada.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Viés de auto-avaliação</p>
+            <p class="text-neutral-400 text-sm mb-1">O agente dá ratings altos para execuções que pareceram bem mas não foram.</p>
+            <p class="text-purple-400 text-sm">Mitigação: Adicionar uma avaliação humana independente para pelo menos 20% das execuções, como check de calibração.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Loop sem convergência</p>
+            <p class="text-neutral-400 text-sm mb-1">As melhorias introduzem novos problemas que introduzem novas melhorias num ciclo sem fim.</p>
+            <p class="text-purple-400 text-sm">Mitigação: Se o rating médio não melhorou após 5 iterações consecutivas, parar e fazer uma revisão profunda em vez de continuar iterando.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Mantenha uma versão "golden" da skill — a melhor versão que você já teve. Se o rating médio cair abaixo da versão golden por 3 execuções consecutivas, <strong>reverta para a versão golden e recomeça o loop do zero</strong> com uma análise do que deu errado nas iterações anteriores.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🏆 Exemplo de skill com auto-iteração</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Para tornar o conceito concreto, a seguir está uma skill completa com todos os componentes de auto-iteração integrados: seção de execução principal, bake-in de reflexão estruturada, sistema de avaliação com critérios objetivos e instruções para o humano sobre como processar as propostas de melhoria. Essa skill pode ser usada diretamente como base para criar suas próprias skills auto-iterativas — substitua o conteúdo do domínio e mantenha a arquitetura de auto-iteração intacta. Após 10 execuções com essa estrutura, você terá uma <strong class="text-purple-400">skill significativamente melhor do que a que você criou originalmente</strong>, sem esforço adicional além da revisão das propostas.
+      </p>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">🏆 Skill Completa com Auto-iteração: Análise de Decisão</h3>
+        <pre><code class="text-sm text-neutral-300">---
+name: decision-analysis
+description: Use para analisar qualquer decisão importante antes de
+  tomá-la. Acione com "analisar decisão", "decision analysis" ou quando
+  precisar estruturar uma escolha difícil com múltiplos fatores.
+version: 1.0
+---
+# Análise de Decisão
+
+## Fase 1 — Coleta de Contexto
+Antes de analisar, coletar:
+1. Qual é a decisão específica a tomar? (descrição em 1 frase)
+2. Quais são as opções disponíveis? (listar todas)
+3. Quais são os critérios de avaliação mais importantes?
+4. Há restrições ou limitações que eliminam certas opções?
+5. Qual é o prazo para decidir?
+
+## Fase 2 — Análise Estruturada
+Para cada opção, avaliar:
+- Prós: benefícios concretos e mensuráveis
+- Contras: riscos, custos e limitações
+- Reversibilidade: quão fácil é reverter se errar?
+- Alinhamento: quanto se alinha com os critérios definidos?
+
+## Fase 3 — Síntese e Recomendação
+- Pontuar cada opção nos critérios (1-5 por critério)
+- Calcular score total ponderado
+- Apresentar recomendação com justificativa de 3-5 pontos
+- Identificar o maior risco da recomendação
+
+## Fase 4 — Plano de Execução
+Se a decisão for tomada:
+- Próximos 3 passos imediatos
+- Indicador de sucesso a monitorar em 30 dias
+
+---
+## AUTO-ITERAÇÃO — Executar ao final de CADA uso
+
+### Reflexão desta execução:
+**O que funcionou bem:**
+[Identificar especificamente o que tornou essa análise útil]
+
+**O que criou fricção:**
+[Identificar onde o processo foi mais difícil do que deveria]
+
+**O que estava faltando:**
+[Algo que teria tornado a análise mais completa ou útil]
+
+**Proposta de melhoria para V.next:**
+[Uma mudança específica — onde na skill, o que mudar, por quê]
+
+### Auto-avaliação (1-5):
+Rating: __/5
+Critério: 5 = análise completa sem lacunas e recomendação clara;
+          3 = análise utilizável mas com ajustes necessários;
+          1 = análise insuficiente para tomar a decisão
+
+---
+## INSTRUÇÕES PARA O HUMANO
+
+Após receber a reflexão e o rating:
+1. Se rating >= 4 e proposta de melhoria é incremental → considerar aplicar na próxima versão
+2. Se rating <= 3 → investigar o que causou a queda antes de aceitar propostas
+3. Se a mesma proposta aparece em 3+ execuções → é um padrão real, priorizar
+4. Atualizar no máximo 1x por semana, mesmo com muitas reflexões acumuladas
+5. Registrar cada atualização no CHANGELOG com versão e mudança</code></pre>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📈</span> O que esperar ao longo do tempo
+        </h3>
+        <div class="space-y-3">
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 font-bold flex-shrink-0">Execuções 1-5:</span>
+            <span class="text-neutral-300 text-sm">Descoberta de gaps óbvios, melhorias de clareza e completude das instruções</span>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 font-bold flex-shrink-0">Execuções 6-15:</span>
+            <span class="text-neutral-300 text-sm">Refinamento de edge cases, ajuste fino do formato de output, calibração da coleta de contexto</span>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 font-bold flex-shrink-0">Execuções 15+:</span>
+            <span class="text-neutral-300 text-sm">Melhorias marginais, skill altamente calibrada para o contexto específico de uso</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">A maior transformação acontece entre as execuções 5 e 15. Se você não percebe diferença de qualidade até a execução 5, é normal — os efeitos da auto-iteração são cumulativos. <strong>Persista pelo menos até a execução 10 antes de avaliar se o sistema está funcionando.</strong></p>
+      </div>
+    </section>
+
+    <!-- RESUMO FINAL -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo — e da Trilha 3</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Skill auto-iterativa</strong><span class="text-neutral-400"> — Skills que aprendem com cada execução via reflexão estruturada e avaliação sistemática</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Bake-in de reflexão</strong><span class="text-neutral-400"> — Seção estruturada ao final da skill com 4 perguntas que geram insights acionáveis</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Sistema de avaliação</strong><span class="text-neutral-400"> — Rating 1-5 com critérios objetivos para rastrear tendências de qualidade</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Loop de melhoria</strong><span class="text-neutral-400"> — 4 etapas: acúmulo → síntese → aprovação humana → aplicação e validação</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Guardrails de segurança</strong><span class="text-neutral-400"> — Drift de propósito, complexidade crescente e viés de auto-avaliação com suas mitigações</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Skill completa de exemplo</strong><span class="text-neutral-400"> — Template funcional com todos os componentes integrados, pronto para adaptar</span></div></div>
+        </div>
+
+        <div class="bg-purple-900/20 rounded-lg p-6 mb-8 border border-purple-500/30">
+          <h3 class="font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">🎓</span> Trilha 3 concluída!</h3>
+          <p class="text-neutral-300 text-sm">Você completou a Trilha No Expert. Com templates prontos, prompts canhão, sub-agentes de teste, consolidação sistemática, stack lean e auto-iteração integradas, você tem o arsenal completo para construir e manter uma biblioteca de skills de nível profissional que evolui continuamente.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-3-5.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">↑ Voltar para Trilha 3</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

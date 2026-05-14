@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.1 — Rode a Frio | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Dicas Técnicas</span>
+          </a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">Avançado</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-blue-400">🔧 Dicas Técnicas</a>
+      <span>/</span>
+      <span class="text-blue-400">Módulo 2.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🧊 Rode a Frio</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Aprenda a testar suas skills com prompts propositalmente vagos para validar se o gatilho funciona sem precisar de dicas explícitas.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">25</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🌡️ O que é rodar a frio</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Rodar a frio é o ato de abrir uma <strong class="text-blue-400">sessão completamente limpa</strong> do Claude Code e digitar um prompt que descreve o problema sem dar nenhuma pista sobre qual skill deve ser acionada. É o teste mais honesto que existe — e também o mais negligenciado. A maioria das pessoas testa suas skills de forma viciada, incluindo o nome da skill no prompt ou formulando a pergunta de um jeito que torna óbvio qual ferramenta usar. Isso não testa nada. O teste frio replica exatamente o que vai acontecer quando você usar a skill no fluxo real de trabalho, sem pensar nela explicitamente.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🧊</span> Conceito Principal: O Teste Frio</h3>
+        <p class="text-neutral-300 mb-4">O teste frio tem três regras inegociáveis:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Sessão nova:</strong> sem histórico de conversa anterior que possa influenciar o contexto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Prompt neutro:</strong> descreve o problema, não a solução ou a ferramenta</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Observação honesta:</strong> registrar o resultado sem racionalizá-lo após o fato</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Antes de testar qualquer skill nova, escreva o prompt de teste em um arquivo separado enquanto ainda está construindo a skill. Isso garante que o prompt seja genuinamente neutro — escrito antes de você ter a skill em mente de forma tão concreta.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🔍 Por que prompts vagos revelam a verdade</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando você diz "use a skill de copywriting para escrever um post", qualquer skill com esse nome dispara. Isso não é um teste — é um atalho. O usuário real vai dizer "escreve um post sobre meu produto" e o modelo precisa inferir que a skill de copywriting é a ferramenta certa com base apenas nos metadados da skill. <strong class="text-blue-400">A qualidade do gatilho é diretamente proporcional à capacidade da skill de ser encontrada por prompts vagos.</strong> Se ela só dispara quando você menciona o nome explicitamente, ela não tem um gatilho — tem uma invocação manual.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🎯</span> A Hierarquia do Gatilho</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Gatilho fraco:</strong> só dispara quando o nome da skill é mencionado</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Gatilho médio:</strong> dispara quando o contexto é muito específico e explícito</span></li>
+          <li class="flex items-start space-x-2"><span class="text-blue-400 mt-1">•</span><span><strong>Gatilho forte:</strong> dispara a partir de menção do problema que a skill resolve</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Prompts que revelam gatilho forte</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>"Preciso escrever algo para o Instagram"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>"Me ajuda com esse texto de vendas"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>"Quero criar um post sobre meu produto"</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Prompts que apenas confirmam o óbvio</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Use a skill de copywriting para..."</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"Acione a ferramenta de posts do Instagram"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>"/copywriting escreva um post"</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">📋 Como fazer o teste</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O processo é simples mas exige disciplina. O erro mais comum é fazer o teste na mesma sessão onde você criou ou editou a skill — nesse contexto, o modelo tem toda a conversa anterior como referência e o teste é completamente inválido. <strong class="text-blue-400">Cada teste frio é uma nova sessão, ponto.</strong> O segundo erro é formular o prompt de teste depois de já ter a skill pronta e "aquecer" a mente inconscientemente com o vocabulário da skill. Escreva o prompt antes ou imediatamente após criar a skill, enquanto você ainda pensa no problema, não na solução.
+      </p>
+      <div class="space-y-6 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Feche a sessão atual</h4>
+            <p class="text-neutral-300 text-sm">Encerre completamente a sessão do Claude Code onde você criou ou editou a skill. Sem atalhos — a sessão precisa ser zerada.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Abra uma sessão limpa</h4>
+            <p class="text-neutral-300 text-sm">Inicie uma nova sessão sem histórico. Se o Claude Code tiver persistência de memória, certifique-se de que o contexto da sessão anterior não está presente.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Digite o prompt neutro</h4>
+            <p class="text-neutral-300 text-sm">Use o prompt que você preparou antecipadamente. Descreve o problema sem nomear a skill ou dar pistas sobre a ferramenta esperada.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center"><span class="text-blue-400 font-bold">4</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Observe e registre</h4>
+            <p class="text-neutral-300 text-sm">Veja qual skill (se alguma) foi acionada. Anote o resultado antes de analisar — o primeiro instinto é mais honesto que a racionalização posterior.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">📊 Interpretando o resultado</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O resultado do teste frio tem exatamente três possibilidades, cada uma com um diagnóstico e uma ação correspondente. Não existe "mais ou menos funcionou" — ou a skill correta disparou, ou não disparou, ou a skill errada disparou. <strong class="text-blue-400">Cada resultado é informação limpa sobre o que precisa ser ajustado.</strong> A tentação é racionalizar o resultado quando ele não é o esperado ("ah, mas se eu tivesse dito diferente..."). Resista a isso. O resultado do teste frio é o único feedback honesto que você tem sobre o desempenho real da skill.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Os Três Resultados Possíveis</h3>
+        <div class="space-y-4">
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="font-semibold text-blue-400 mb-1">✅ Skill correta disparou</p>
+            <p class="text-neutral-300 text-sm">O gatilho está bem calibrado. A descrição contém as palavras-chave certas na posição certa. Continue usando a skill e monitore ao longo do tempo.</p>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="font-semibold text-yellow-400 mb-1">⚠️ Nenhuma skill disparou</p>
+            <p class="text-neutral-300 text-sm">A descrição não contém vocabulário suficiente para o modelo inferir o uso. Revise a primeira frase da descrição e inclua palavras do domínio do problema.</p>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="font-semibold text-red-400 mb-1">❌ Skill errada disparou</p>
+            <p class="text-neutral-300 text-sm">Há conflito de vocabulário entre skills similares. Diferencia as descrições das skills conflitantes e torna cada uma mais específica ao seu domínio exclusivo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔧 O que fazer quando a skill errada dispara</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando a skill errada dispara, o problema está quase sempre na sobreposição de vocabulário entre duas skills da sua biblioteca. O modelo não tem critérios suficientes para diferenciar e aciona a que apareceu primeiro ou a que tem descrição mais longa. <strong class="text-blue-400">A solução não é remover palavras genéricas — é adicionar especificidade exclusiva.</strong> Cada skill precisa ter pelo menos um marcador semântico que não existe em nenhuma outra skill da sua biblioteca. Encontrar esse marcador é o exercício central do diagnóstico de conflito.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ O que FAZER para resolver o conflito</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Liste todas as skills com domínio similar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Identifique o vocabulário compartilhado</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Adicione um marcador exclusivo a cada skill</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Refaça o teste frio após cada ajuste</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que NÃO fazer</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Apagar a skill errada sem diagnóstico</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Adicionar mais palavras genéricas à descrição</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aceitar o conflito e usar invocação manual</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Renomear a skill sem revisar a descrição</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Mantenha um mapa de domínios das suas skills — uma tabela simples com o nome de cada skill e as 3-5 palavras-chave exclusivas dela. Quando surgir um conflito, a tabela revela imediatamente qual é a sobreposição problemática.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">✅ Checklist do teste frio</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Um checklist transforma o teste subjetivo em protocolo objetivo. Sem ele, você vai "testar" de formas diferentes cada vez e não terá como comparar resultados entre sessões diferentes ou entre skills diferentes. <strong class="text-blue-400">O checklist é o que transforma o teste frio de uma prática ad hoc em um protocolo de qualidade reproduzível.</strong> Aplique ele toda vez que criar uma nova skill e toda vez que revisar uma skill existente. Cinco pontos, cada um não negociável.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-6 flex items-center"><span class="mr-2">✅</span> Os 5 Pontos do Checklist</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3">
+            <span class="w-7 h-7 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">1</span>
+            <div><strong class="text-white">Sessão limpa</strong><p class="text-neutral-300 text-sm mt-1">Confirmou que não há histórico de conversa anterior sobre a skill ou o domínio dela?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-7 h-7 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">2</span>
+            <div><strong class="text-white">Prompt neutro</strong><p class="text-neutral-300 text-sm mt-1">O prompt não menciona o nome da skill, não usa verbos de invocação e descreve apenas o problema?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-7 h-7 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">3</span>
+            <div><strong class="text-white">Skill correta disparou</strong><p class="text-neutral-300 text-sm mt-1">A skill esperada (e não outra) foi acionada pelo modelo sem instruções explícitas?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-7 h-7 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">4</span>
+            <div><strong class="text-white">Output corresponde ao esperado</strong><p class="text-neutral-300 text-sm mt-1">O output gerado tem a estrutura e o conteúdo que a skill deveria produzir?</p></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="w-7 h-7 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">5</span>
+            <div><strong class="text-white">Ausência de conflito</strong><p class="text-neutral-300 text-sm mt-1">Nenhuma outra skill foi mencionada ou considerada pelo modelo antes de acionar a correta?</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO FINAL -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🧊</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Teste frio = sessão limpa + prompt neutro</strong><span class="text-neutral-400"> — sem atalhos, sem contexto anterior</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Prompts vagos revelam a qualidade real do gatilho</strong><span class="text-neutral-400"> — o usuário real não cita o nome da skill</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Três resultados possíveis</strong><span class="text-neutral-400"> — disparo correto, sem disparo, disparo errado — cada um com ação específica</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Conflito de vocabulário</strong><span class="text-neutral-400"> — resolvido com marcadores semânticos exclusivos por skill</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Checklist de 5 pontos</strong><span class="text-neutral-400"> — torna o teste reproduzível e comparável entre sessões</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.2 — 📏 Orçamento de Descrição: o limite invisível de caracteres que o Claude Code usa ao ler suas skills</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha 2</a>
+          <a href="modulo-2-2.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

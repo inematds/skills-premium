@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.7 — Primitiva Errada | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span><span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Dicas Técnicas</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Avançado</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">🔧 Dicas Técnicas</a><span>/</span>
+      <span class="text-blue-400">Módulo 2.7</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.7</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🔀 Primitiva Errada</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Pare de usar skill para tudo. Aprenda a distinguir quando skill, rule, CLAUDE.md, CLI ou automação é a ferramenta certa — e tome a decisão em 30 segundos.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🩼 Skill como muleta</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        À medida que você domina a criação de skills, existe um efeito colateral previsível: você começa a usar skills para tudo. Precisa de um comportamento consistente? Cria uma skill. Precisa de contexto global? Cria uma skill. Precisa de uma tarefa repetível? Cria uma skill. O resultado é uma biblioteca inflada com dezenas de skills onde metade poderia ser substituída por uma ferramenta mais simples e eficaz. <strong class="text-blue-400">Usar a ferramenta certa para cada trabalho não é um detalhe — é a diferença entre um sistema que funciona e um que se torna difícil de manter.</strong>
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🩼</span> Sinais de que você está usando skill como muleta</h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>Você tem skills para comportamentos que deveriam ser sempre ativados</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>Você tem skills para contexto que não muda entre projetos</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>Você tem skills para tarefas que um script CLI resolveria em 2 segundos</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400 mt-1">•</span><span>Você tem mais de 20 skills e usa menos de 5 regularmente</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📏 Skill vs Rule</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Uma Rule é uma instrução que o Claude sempre segue, em toda interação, independente do contexto — sem precisar ser acionada. Se você quer que o Claude sempre responda em português, nunca use m-dash, sempre formate código de determinada forma ou mantenha um tom específico em todas as respostas, <strong class="text-blue-400">isso é uma Rule, não uma skill</strong>. Skills são acionadas contextualmente; Rules são sempre ativas. Para comportamentos globais e consistentes, a Rule é mais eficaz com menos overhead.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Use Rule quando...</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>O comportamento deve se aplicar a TODA interação</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>É uma proibição ou restrição permanente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Não depende do tipo de tarefa</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Exemplos: idioma, formatação global, tom padrão</span></li>
+          </ul>
+        </div>
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Use Skill quando...</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>O comportamento é específico a um tipo de tarefa</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Requer instrução detalhada e estruturada</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>O output varia significativamente por contexto</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Exemplos: copywriting, análise, diagnóstico</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">📄 Skill vs Claude.md</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O CLAUDE.md carrega contexto persistente sobre o projeto atual — informações que devem estar disponíveis em toda interação sem precisar de ativação. Quem é o usuário, quais são as tecnologias do projeto, qual é o estilo de código preferido, quais são as convenções do time. <strong class="text-blue-400">Se a informação é sobre "quem você é" ou "qual é o projeto", vai no CLAUDE.md. Se é sobre "o que fazer em determinada situação", vai na skill.</strong> Colocar contexto de projeto em uma skill significa que ele só está disponível quando a skill é acionada — uma limitação desnecessária.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📄</span> Divisão de Responsabilidades</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="text-blue-400 font-semibold text-sm mb-2">CLAUDE.md</p>
+            <ul class="space-y-1 text-neutral-300 text-sm">
+              <li>• Quem é o usuário</li>
+              <li>• Qual é o projeto</li>
+              <li>• Tecnologias em uso</li>
+              <li>• Convenções do time</li>
+              <li>• Preferências persistentes</li>
+            </ul>
+          </div>
+          <div class="bg-dark-700/50 rounded-lg p-4">
+            <p class="text-blue-400 font-semibold text-sm mb-2">Skill</p>
+            <ul class="space-y-1 text-neutral-300 text-sm">
+              <li>• O que fazer em X situação</li>
+              <li>• Como gerar determinado output</li>
+              <li>• Processo de análise específico</li>
+              <li>• Instruções detalhadas de tarefa</li>
+              <li>• Workflows com múltiplos passos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">💻 Skill vs CLI</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Para tarefas determinísticas — onde a entrada e a saída são previsíveis e não variam — um alias de linha de comando ou script é dramaticamente mais eficiente que uma skill. <strong class="text-blue-400">Skills têm overhead de interpretação</strong>: o modelo precisa ler a skill, interpretar as instruções e gerar o output. Para tarefas mecânicas que um script executa em milissegundos com 100% de consistência, esse overhead não faz sentido. O critério é simples: se você pode escrever o output esperado em um script, use um script.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Não crie skill para isso</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Converter arquivos de formato (JSON → CSV)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Renomear arquivos em massa seguindo uma regra</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Extrair dados de logs seguindo padrão fixo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Gerar boilerplate sempre idêntico</span></li>
+          </ul>
+        </div>
+        <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+          <h4 class="font-bold text-blue-400 mb-4">✓ Crie skill para isso</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Análise de código que requer julgamento</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Geração de documentação que varia por contexto</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Diagnóstico de problemas com múltiplas variáveis</span></li>
+            <li class="flex items-start space-x-2"><span class="text-blue-400">✓</span><span>Comunicação que precisa de tom adaptativo</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🤖 Skill vs Automação</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando um processo se repete regularmente com as mesmas entradas e o mesmo resultado esperado, e precisa rodar sem interação manual, a resposta certa é automação — não skill. <strong class="text-blue-400">Skills são para decisões que requerem julgamento contextual e ativação manual.</strong> Processos regulares e predefinidos (relatórios semanais, processamento de formulários, notificações automáticas) pertencem ao domínio de ferramentas como n8n, Make ou scripts agendados. Usar skill para isso seria como usar uma faca cirúrgica para cortar papel.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🤖</span> Critérios para Automação</h3>
+        <div class="space-y-3">
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold text-sm">✓</span>
+            <p class="text-neutral-300 text-sm"><strong>Recorrência previsível</strong> — acontece na mesma frequência com as mesmas condições</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold text-sm">✓</span>
+            <p class="text-neutral-300 text-sm"><strong>Sem julgamento necessário</strong> — o resultado correto é sempre o mesmo para a mesma entrada</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold text-sm">✓</span>
+            <p class="text-neutral-300 text-sm"><strong>Pode rodar sem supervisão</strong> — não precisa de aprovação ou revisão humana a cada execução</p>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold text-sm">✓</span>
+            <p class="text-neutral-300 text-sm"><strong>Múltiplos passos determinísticos</strong> — sequência de ações fixas que não variam por contexto</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🗺️ O fluxo de decisão</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Com quatro perguntas simples, você escolhe a primitiva certa em menos de 30 segundos. O fluxo elimina a análise desnecessária e torna a escolha uma decisão automática. <strong class="text-blue-400">Memorize o fluxo e você vai parar de criar skills por inércia</strong> — cada nova adição à sua biblioteca será intencional e na primitiva correta.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-6 flex items-center"><span class="mr-2">🗺️</span> Fluxo de Decisão em 4 Perguntas</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-4">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">P1</span>
+            <div>
+              <p class="font-semibold text-white mb-1">"Deve acontecer em TODA interação, sem ativação?"</p>
+              <p class="text-blue-400 text-sm">→ SIM: Use Rule</p>
+              <p class="text-neutral-400 text-sm">→ NÃO: Próxima pergunta</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-4">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">P2</span>
+            <div>
+              <p class="font-semibold text-white mb-1">"É contexto sobre o projeto ou o usuário que não muda?"</p>
+              <p class="text-blue-400 text-sm">→ SIM: Use CLAUDE.md</p>
+              <p class="text-neutral-400 text-sm">→ NÃO: Próxima pergunta</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-4">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">P3</span>
+            <div>
+              <p class="font-semibold text-white mb-1">"É uma tarefa determinística que um script executa melhor?"</p>
+              <p class="text-blue-400 text-sm">→ SIM: Use CLI ou Automação</p>
+              <p class="text-neutral-400 text-sm">→ NÃO: Próxima pergunta</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 rounded-lg p-4">
+            <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">P4</span>
+            <div>
+              <p class="font-semibold text-white mb-1">"Requer julgamento contextual e instrução detalhada?"</p>
+              <p class="text-blue-400 text-sm">→ SIM: Use Skill</p>
+              <p class="text-neutral-400 text-sm">→ NÃO: Reconsidere se é necessário criar qualquer coisa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Imprima ou salve o fluxo de decisão e use antes de criar qualquer nova skill. Nos primeiros 30 dias, a fricção de consultar o fluxo vai automaticamente criar o hábito de escolha consciente de primitivas.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🔀</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Skill como muleta = biblioteca inflada e subutilizada</strong><span class="text-neutral-400"> — menos skills melhores superam mais skills piores</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Rule para comportamentos globais e permanentes</strong><span class="text-neutral-400"> — sem ativação, sempre ativo, menor overhead</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">CLAUDE.md para contexto persistente de projeto</strong><span class="text-neutral-400"> — disponível em toda interação sem ativação</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">CLI/automação para tarefas determinísticas</strong><span class="text-neutral-400"> — mais rápido, mais confiável, sem overhead de interpretação</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Fluxo de 4 perguntas resolve em 30 segundos</strong><span class="text-neutral-400"> — decisão consciente vs. inércia de criar skill</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.8 — 🔍 Auditoria Séria: use o agente claude-code-guide para auditar estruturalmente toda a sua biblioteca</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-2-6.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-2-8.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

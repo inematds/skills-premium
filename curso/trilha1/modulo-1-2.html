@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1.2 — Nem Tudo Deve Ser Skill | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">⚠️ Fundamentos</a>
+      <span>/</span>
+      <span class="text-emerald-400">Módulo 1.2</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🧠 Nem Tudo Deve Ser Skill</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Muita gente usa skill como resposta padrão para qualquer necessidade recorrente. Aprenda a distinguir quando o formato certo é uma Rule, o Claude.md, uma automação ou uma API.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Iniciante</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Tópico 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🪤 A Armadilha do "Tem Skill pra Isso"</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando começamos a trabalhar com skills, desenvolvemos rapidamente um padrão mental: sempre que uma tarefa se repete, criamos uma skill para ela. Essa lógica parece sólida — afinal, skills são exatamente para isso, certo? O problema é que <strong class="text-emerald-400">nem toda tarefa recorrente é candidata a uma skill</strong>. O formato skill tem um custo e um perfil de uso específico. Usá-lo onde não cabe é como usar um martelo para apertar parafuso.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A armadilha se manifesta especialmente quando você encontra uma solução que funciona bem. Uma skill que ajudou em um projeto vira template mental para todos os projetos futuros — mesmo quando outros formatos seriam mais eficientes. O viés de confirmação faz o resto: a skill funcionou antes, então deve ser o formato certo sempre.
+      </p>
+
+      <img src="../../doc/ChatGPT Image 13 de mai. de 2026, 23_53_45.png" alt="Diagrama mostrando os diferentes formatos disponíveis além de skills" class="max-w-2xl mx-auto rounded-xl shadow-lg my-8 w-full">
+
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🗺️</span> Os Formatos Disponíveis
+        </h3>
+        <p class="text-neutral-300 mb-4">Antes de criar uma skill, considere sempre estes formatos alternativos:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Rule:</strong> para comportamentos fixos e universais</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Claude.md:</strong> para contexto permanente e configurações globais</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Automação (CLI/n8n):</strong> para processos determinísticos e previsíveis</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>API/MCP:</strong> para integrações programáticas e ações externas</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span><strong>Skill:</strong> quando precisa de julgamento contextual do Claude</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Antes de criar qualquer skill nova, faça a pergunta de triagem: "Esta tarefa requer julgamento contextual e criativo do Claude, ou poderia ser executada de forma determinística?" Se a resposta for "poderia ser determinística", provavelmente não é uma skill.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">📏 Quando Usar uma Rule</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Rules são a ferramenta para comportamentos que o Claude deve seguir <strong class="text-emerald-400">sempre, sem exceção e sem julgamento contextual</strong>. São restrições ou instruções fixas que não variam com o contexto da conversa. "Nunca responda em inglês se o usuário escrever em português." "Sempre termine respostas de código com um sumário das mudanças." "Não sugira soluções comerciais pagas sem pedir permissão."
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O critério de distinção é simples: se você consegue escrever a instrução como uma regra de negócio sem variáveis condicionais, é uma Rule. Se a instrução precisa de "depende do contexto", "se o usuário quiser X então faça Y", ou "baseado na situação específica", então pode ser uma skill. Rules são simples, limpas e têm custo mínimo de implementação e manutenção.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">📌</span> Exemplos de Rules vs. Skills
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓ Rule:</span><span class="ml-2">"Sempre responda no mesmo idioma do usuário"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓ Rule:</span><span class="ml-2">"Não inclua código não solicitado nas respostas"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400">✓ Rule:</span><span class="ml-2">"Sempre cite a fonte quando mencionar dados ou estatísticas"</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗ Não é Rule:</span><span class="ml-2">"Ajude o usuário a criar workflows de automação" (precisa de julgamento)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗ Não é Rule:</span><span class="ml-2">"Analise o código e sugira melhorias" (contextual e variável)</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Use Rule quando</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Comportamento deve ser sempre o mesmo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Sem exceções baseadas em contexto</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Cabe em 1-2 frases claras</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Não use Rule quando</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>A instrução tem condicionais ou variáveis</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Depende do contexto da conversa</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Requer julgamento ou criatividade do Claude</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tópico 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">📝 Quando Usar o Claude.md</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O Claude.md é o arquivo de identidade e contexto permanente — o lugar onde você define quem você é, como o Claude deve interagir com você por padrão, e informações sobre seu trabalho que são relevantes em praticamente toda conversa. <strong class="text-emerald-400">Muita gente cria skills para guardar informações que deveriam estar no Claude.md</strong>, adicionando custo e complexidade desnecessários ao sistema.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A diferença entre Claude.md e skill é temporal e de escopo: Claude.md é para o que é sempre verdadeiro sobre você e seu contexto. Skill é para processos de trabalho específicos que você executa em ocasiões determinadas. "Sou desenvolvedor Python e trabalho com APIs REST" vai no Claude.md. "Quando estou revisando APIs, siga este fluxo de análise..." pode ser uma skill.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">📋</span> O que Vai no Claude.md
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Sua profissão, área de atuação e expertise</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Preferências de comunicação e estilo de resposta</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Tecnologias, frameworks e ferramentas do seu stack</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Contexto de projetos recorrentes que o Claude precisa conhecer</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Restrições permanentes de comportamento</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Revise seu inventário de skills em busca de arquivos que contêm principalmente informação estática sobre você (quem você é, como trabalha, o que gosta). Esses provavelmente deveriam estar no Claude.md, não como skills separadas. Consolide e simplifique.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">⚙️ Quando Usar CLI ou Automação</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Automações — seja via scripts bash, ferramentas CLI ou plataformas como n8n — são superiores a skills para qualquer processo que segue um fluxo determinístico: a sequência de passos é sempre a mesma, os inputs e outputs são previsíveis, e não há necessidade de julgamento contextual no caminho. <strong class="text-emerald-400">Se o processo pode ser descrito como um flowchart sem diamantes de decisão</strong>, é candidato a automação.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O erro mais comum é criar uma skill que "ajuda a fazer X" quando X poderia simplesmente ser feito automaticamente. Uma skill que instrui o Claude a renomear arquivos seguindo uma convenção, por exemplo, é menos eficiente do que um script bash de 3 linhas. Automações são mais rápidas, mais confiáveis, mais fáceis de auditar e não consomem contexto do Claude.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🔄</span> Critérios para Automação
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Fluxo sempre idêntico, sem variações baseadas em contexto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Inputs e outputs claramente definidos e previsíveis</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Sem necessidade de interpretação ou julgamento</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Alta frequência de uso (executa várias vezes por dia ou semana)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Rastreabilidade e auditoria são importantes</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Se você usa uma skill para executar sempre "o mesmo processo" sem variação, considere substituí-la por um alias de terminal, um script ou um workflow n8n. Libere espaço no contexto do Claude para o que ele faz de melhor: julgamento contextual e criatividade.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔌 Quando uma API é Melhor</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando você precisa que o Claude interaja com sistemas externos de forma confiável — criar issues no GitHub, enviar emails, atualizar registros em bancos de dados, fazer chamadas para serviços de terceiros — a ferramenta certa é uma integração via API ou via MCP (Model Context Protocol), <strong class="text-emerald-400">não uma skill de linguagem natural</strong>. Skills descrevem como o Claude deve pensar e agir; APIs habilitam o Claude a executar ações reais em sistemas.
+      </p>
+      <p class="text-neutral_300 mb-6 leading-relaxed">
+        O erro clássico é criar uma skill que "instrui o Claude a criar um issue no GitHub" quando a solução certa é um MCP server do GitHub que dá ao Claude a capacidade real de criar issues. Uma skill só pode descrever o processo — ela não pode executar a ação. Uma integração MCP permite execução real, com confirmação, tratamento de erros e rastreabilidade.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🛠️</span> Quando Escalar para API/MCP
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Precisa executar ações em sistemas externos (não apenas descrever como fazê-las)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Rastreabilidade e log de ações são necessários</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Necessidade de tratamento de erros robusto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">•</span><span>Integração com sistemas que têm APIs oficiais (GitHub, Slack, Google, etc.)</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Use API/MCP para</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Criar, editar ou deletar registros em sistemas</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Enviar notificações ou mensagens automaticamente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Consultar dados em tempo real de fontes externas</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Não substitui API</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skills que "ensinam" o Claude a usar uma API manualmente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skills que descrevem passos para executar em outro sistema</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skills que "simulam" integração sem executar de verdade</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tópico 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🗺️ O Critério de Decisão Correto</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Com todos os formatos disponíveis, o critério de escolha se resume a uma única pergunta: <strong class="text-emerald-400">essa tarefa requer julgamento contextual e adaptativo do Claude?</strong> Se sim, é uma skill. Se não, provavelmente existe um formato mais eficiente, confiável e econômico para o trabalho. Dominar esse critério é a habilidade de arquitetura mais importante de quem trabalha com LLMs profissionalmente.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O fluxo de decisão é deliberado e demora poucos segundos quando internalizado. Com prática, a triagem se torna automática — e você para de criar skills desnecessárias enquanto também para de tentar fazer com skills o que outras ferramentas fazem muito melhor. O resultado é um ambiente mais limpo, mais eficiente e muito mais prazeroso de usar no dia a dia.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🔀</span> Fluxo de Decisão
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">1.</span><span>É um comportamento sempre igual, sem variação? → <strong>Rule</strong></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">2.</span><span>É contexto permanente sobre mim ou meu trabalho? → <strong>Claude.md</strong></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">3.</span><span>É um processo determinístico, mesmo fluxo sempre? → <strong>Automação/CLI</strong></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">4.</span><span>Precisa executar ações em sistemas externos? → <strong>API/MCP</strong></span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">5.</span><span>Requer julgamento contextual e criativo do Claude? → <strong>Skill</strong></span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Imprima ou salve o fluxo de decisão e use-o nas próximas duas semanas toda vez que pensar em criar algo novo. Após esse período, o critério estará internalizado e você tomará essas decisões de forma automática, poupando horas de criação e manutenção de soluções no formato errado.</p>
+      </div>
+    </section>
+
+    <!-- Resumo Final -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo 1.2
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">A armadilha do "tem skill pra isso"</strong><span class="text-neutral-400"> — nem toda tarefa recorrente é candidata a uma skill; o formato importa</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Rules</strong><span class="text-neutral-400"> — para comportamentos fixos e universais sem variação contextual</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Claude.md</strong><span class="text-neutral-400"> — para contexto permanente sobre você e seu trabalho</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Automação</strong><span class="text-neutral-400"> — para processos determinísticos que sempre seguem o mesmo fluxo</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">API/MCP</strong><span class="text-neutral-400"> — para ações reais em sistemas externos com rastreabilidade</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Skill</strong><span class="text-neutral-400"> — somente quando a tarefa genuinamente requer julgamento contextual e adaptativo do Claude</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.3 — 🏗️ Anatomia de uma Skill que Funciona — Aprenda os elementos essenciais que separam uma skill eficaz de um arquivo de texto que ninguém usa</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-1.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-1-3.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); }
+    else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

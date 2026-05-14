@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2.5 — Nota da Experiência | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span><span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Dicas Técnicas</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Avançado</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Início</a><span>/</span>
+      <a href="index.html" class="hover:text-blue-400">🔧 Dicas Técnicas</a><span>/</span>
+      <span class="text-blue-400">Módulo 2.5</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.5</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">⭐ Nota da Experiência</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Crie um feedback loop contínuo embutindo avaliação 1 a 10 na própria skill e transforme cada sessão em insumo para melhoria.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">25</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Inter.</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🔁 A ideia do feedback loop</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A maioria das skills é criada uma vez e nunca mais revisada. Elas funcionam "bem o suficiente" e ficam lá, estáticas, enquanto o uso evolui e os outputs deixam de ser os melhores possíveis. Um feedback loop muda essa dinâmica: <strong class="text-blue-400">transforma cada uso da skill em uma oportunidade de aprendizado</strong>. A informação gerada por cada sessão alimenta a próxima melhoria da skill — não de forma manual e esporádica, mas como parte do próprio fluxo de uso.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔁</span> O Ciclo de Melhoria Contínua</h3>
+        <div class="space-y-3">
+          <div class="flex items-center space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold">1</span>
+            <p class="text-neutral-300 text-sm">Skill gera output</p>
+          </div>
+          <div class="flex items-center space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold">2</span>
+            <p class="text-neutral-300 text-sm">Usuário avalia a qualidade (1-10)</p>
+          </div>
+          <div class="flex items-center space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold">3</span>
+            <p class="text-neutral-300 text-sm">Skill pergunta o que faltou para ser 10</p>
+          </div>
+          <div class="flex items-center space-x-3 bg-dark-700/50 rounded-lg p-3">
+            <span class="text-blue-400 font-bold">4</span>
+            <p class="text-neutral-300 text-sm">Feedback vira insumo para a próxima iteração</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🔢 Como pedir a nota</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A pergunta de avaliação precisa ser simples, rápida e não invasiva. <strong class="text-blue-400">A escala 1-10 é universalmente compreendida</strong> e gera dados comparáveis entre sessões diferentes. Uma pergunta longa ou com muitas opções cria fricção que reduz a probabilidade de o usuário responder. A versão mais eficaz é direta: "De 1 a 10, qual nota você dá para este output?" — sem explicações adicionais, sem escala descritiva, sem anchors.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔢</span> A Pergunta de Avaliação</h3>
+        <div class="bg-dark-700/50 rounded-lg p-4 mb-4">
+          <p class="text-blue-400 font-semibold text-sm mb-2">Formato recomendado:</p>
+          <p class="text-neutral-300 font-mono text-sm">"De 1 a 10, qual nota você dá para este output? (1 = completamente fora do que eu precisava, 10 = perfeito, usaria sem alterar uma vírgula)"</p>
+        </div>
+        <p class="text-neutral-400 text-sm">O anchor de 10 ("usaria sem alterar uma vírgula") é importante — define o padrão de qualidade máxima de forma concreta, não abstrata.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">❓ A pergunta do porquê</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A nota sozinha é útil mas incompleta. Um 7 pode significar coisas completamente diferentes — talvez o conteúdo estava correto mas o tom estava errado, ou a estrutura estava boa mas faltou especificidade. <strong class="text-blue-400">A segunda pergunta ("por que não foi 10?") é o que transforma a avaliação em diagnóstico.</strong> Ela força o usuário a articular o gap de forma explícita, gerando a informação exata que precisa ser ajustada na skill.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+          <h4 class="font-semibold text-blue-400 mb-3">Primeira pergunta: a nota</h4>
+          <p class="text-neutral-300 text-sm mb-3">"De 1 a 10, qual nota você dá para este output?"</p>
+          <p class="text-neutral-400 text-xs">Gera: dado numérico comparável entre sessões</p>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+          <h4 class="font-semibold text-blue-400 mb-3">Segunda pergunta: o diagnóstico</h4>
+          <p class="text-neutral-300 text-sm mb-3">"O que precisaria mudar para ser 10?"</p>
+          <p class="text-neutral-400 text-xs">Gera: insumo concreto para melhoria da skill</p>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Se o usuário responder "8", a segunda pergunta deve ser automática: "O que faltou para ser 10?" — não pergunte apenas "o que você acha que poderia melhorar?" A formulação "para ser 10" ancora a resposta no ideal, não no incremental.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">⚡ O que fazer com a nota</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Dados sem protocolo de ação são ruído. Quando recebe uma nota baixa, a maioria das pessoas faz uma das duas coisas: ignora ou refaz o output manualmente sem alterar a skill. Ambas são respostas erradas. <strong class="text-blue-400">A nota precisa acionar um protocolo específico</strong> que determina exatamente o que fazer a seguir — e esse protocolo precisa estar definido antes de qualquer sessão acontecer.
+      </p>
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">⚡</span> Protocolo de Ação por Nota</h3>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3 bg-red-900/20 border border-red-500/20 rounded-lg p-4">
+            <span class="w-12 h-8 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center text-sm flex-shrink-0">1-6</span>
+            <div><strong class="text-red-400">Revisão imediata</strong><p class="text-neutral-300 text-sm mt-1">O output não atendeu minimamente. Abra a skill agora, aplique o feedback da segunda pergunta e refaça o teste frio.</p></div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 border border-dark-600 rounded-lg p-4">
+            <span class="w-12 h-8 rounded-full bg-yellow-500/20 text-yellow-400 font-bold flex items-center justify-center text-sm flex-shrink-0">7-8</span>
+            <div><strong class="text-yellow-400">Ajuste pontual</strong><p class="text-neutral-300 text-sm mt-1">O output foi bom mas não excelente. Registre o feedback para a próxima revisão programada da skill.</p></div>
+          </div>
+          <div class="flex items-start space-x-3 bg-dark-700/50 border border-dark-600 rounded-lg p-4">
+            <span class="w-12 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm flex-shrink-0">9-10</span>
+            <div><strong class="text-blue-400">Confirmar e arquivar</strong><p class="text-neutral-300 text-sm mt-1">O output foi excelente. Registre o contexto desta sessão como exemplo de uso ideal para referência futura.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🔩 Integrando na skill</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A seção de rating vai ao final do arquivo da skill, após todas as instruções de output. Precisa ser uma seção separada com cabeçalho próprio para que o modelo entenda que esta é uma fase distinta da execução. <strong class="text-blue-400">A posição final garante que a avaliação acontece depois do output completo</strong>, não durante ou antes. O texto das duas perguntas deve ser exato e não ambíguo — o modelo executa literalmente o que está escrito.
+      </p>
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h4 class="font-semibold text-blue-400 mb-4">Implementação na skill</h4>
+        <div class="bg-dark-700/50 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-1">
+          <p class="text-blue-400">## AVALIAÇÃO (executar após output completo)</p>
+          <br>
+          <p>Após entregar o output, faça as seguintes perguntas:</p>
+          <br>
+          <p>P1: "De 1 a 10, qual nota você dá para este output?</p>
+          <p>(1 = completamente fora do esperado, 10 = usaria sem alterar nada)"</p>
+          <br>
+          <p>P2 (se nota menor que 10): "O que precisaria mudar para ser 10?"</p>
+          <br>
+          <p>Registre as respostas e ofereça gerar uma versão revisada se solicitado.</p>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Dica Prática</h3>
+        <p class="text-neutral-300">Adicione: "Se a nota for 6 ou abaixo, sugira proativamente revisar a skill com base no feedback." Isso fecha o loop automaticamente — sem precisar que o usuário tome a iniciativa de revisar.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">📄 Exemplo de skill com rating</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O exemplo completo abaixo mostra uma skill de análise de copy com a seção de rating integrada. Observe como a seção de avaliação é claramente separada da seção de geração, e como o texto das perguntas é direto e executável. <strong class="text-blue-400">Este template pode ser copiado e adaptado para qualquer skill que produza output avaliável</strong> — que é praticamente toda skill de geração de conteúdo.
+      </p>
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h4 class="font-semibold text-blue-400">skill: copy-analyzer.md (versão com rating)</h4>
+          <span class="text-xs text-neutral-500 bg-dark-700 rounded px-2 py-1">Template completo</span>
+        </div>
+        <div class="bg-dark-700/50 rounded-lg p-4 font-mono text-xs text-neutral-300 space-y-1">
+          <p class="text-blue-400"># Copy Analyzer</p>
+          <p><span class="text-neutral-500">description:</span> Use para analisar e melhorar copy existente identificando pontos fracos e propondo versões otimizadas.</p>
+          <br>
+          <p class="text-blue-400">## PROIBIDO</p>
+          <p>Nunca use: m-dash, "incrível", "transformador", "Além disso".</p>
+          <br>
+          <p class="text-blue-400">## ENTREVISTA</p>
+          <p>Colete: copy original, plataforma, objetivo, público-alvo.</p>
+          <br>
+          <p class="text-blue-400">## GERAÇÃO</p>
+          <p>Analise e entregue: diagnóstico + versão otimizada.</p>
+          <br>
+          <p class="text-blue-400">## AVALIAÇÃO</p>
+          <p>Após output: "De 1 a 10, qual nota você dá?"</p>
+          <p>Se &lt; 10: "O que precisaria mudar para ser 10?"</p>
+          <p>Se &lt;= 6: sugira revisão da skill com base no feedback.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">⭐</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Feedback loop converte uso em melhoria</strong><span class="text-neutral-400"> — skills sem avaliação ficam estáticas</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Escala 1-10 gera dados comparáveis</strong><span class="text-neutral-400"> — simples, universal, sem fricção excessiva</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">"Por que não foi 10?" é o diagnóstico real</strong><span class="text-neutral-400"> — a nota aponta o problema; o "porquê" identifica o gap</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Protocolo por threshold evita inação</strong><span class="text-neutral-400"> — 1-6: revisão imediata; 7-8: ajuste; 9-10: arquivar</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-blue-400 mt-1">✓</span><div><strong class="text-white">Seção AVALIAÇÃO vai ao final da skill</strong><span class="text-neutral-400"> — separada e após todas as instruções de geração</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-blue-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">2.6 — 🔄 Feedback que Transforma: reverse meta prompting para pedir ao Claude que critique e melhore a própria skill</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-2-4.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-2-6.html" class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

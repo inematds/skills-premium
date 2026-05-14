@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.1 — Templates Prontos | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Engenharia</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">No Expert</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">🧪 No Expert</a>
+      <span>/</span>
+      <span class="text-purple-400">Módulo 3.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.1</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">📋 Templates Prontos</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Templates reutilizáveis para entrevista, reflexão, consolidação e auditoria — prontos para copiar, adaptar e usar imediatamente.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">6</div>
+          <div class="text-xs text-neutral-400">Tópicos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">40</div>
+          <div class="text-xs text-neutral-400">Minutos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">Expert</div>
+          <div class="text-xs text-neutral-400">Nível</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">Prático</div>
+          <div class="text-xs text-neutral-400">Tipo</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">🎤 Skill de entrevista universal</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        A maioria das skills falha não por falta de instrução, mas por falta de <strong class="text-purple-400">contexto adequado</strong>. Uma skill que não sabe para quem está executando e em qual situação específica vai produzir respostas genéricas que frustram mais do que ajudam. O template de entrevista universal resolve esse problema embutindo uma fase obrigatória de coleta de contexto antes de qualquer ação. Ao invés de assumir que o usuário vai fornecer todas as informações necessárias — o que raramente acontece — a skill conduz uma entrevista estruturada com perguntas progressivas e validação de resposta antes de avançar. O resultado é uma execução muito mais precisa, personalizada e útil em qualquer contexto de uso.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📐</span> Conceito Principal: A estrutura de entrevista progressiva
+        </h3>
+        <p class="text-neutral-300 mb-4">Uma entrevista bem projetada tem três camadas de perguntas, executadas em ordem:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Perguntas obrigatórias:</strong> As que sem resposta a skill não pode prosseguir (contexto, objetivo, restrições)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Perguntas de qualidade:</strong> As que melhoram significativamente o resultado (preferências, exemplos, referências)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Perguntas opcionais:</strong> As que adicionam nuance mas não são críticas (detalhes secundários, contexto histórico)</span></li>
+        </ul>
+      </div>
+
+      <!-- Template real -->
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📄 Template: Skill de Entrevista Universal</h3>
+        <pre><code class="text-sm text-neutral-300">---
+name: universal-interview
+description: Use no início de qualquer skill que precisa coletar contexto
+  antes de agir. Acione com "entrevista", "coletar contexto" ou quando
+  a skill precisar de informações específicas do usuário antes de executar.
+---
+# Entrevista Universal
+
+## Fase 1 — Coleta Obrigatória
+Antes de qualquer ação, preciso entender o contexto mínimo.
+
+Faça as seguintes perguntas (uma de cada vez, aguardando resposta):
+
+1. **Qual é o objetivo principal desta sessão?**
+   - O que você quer alcançar ao final?
+   - Qual seria o resultado ideal?
+
+2. **Quem é o destinatário ou usuário final?**
+   - Para quem este trabalho se destina?
+   - Qual é o nível de familiaridade técnica dele?
+
+3. **Quais são as restrições ou limitações importantes?**
+   - Há prazo, formato, tamanho ou estilo específico?
+   - O que definitivamente NÃO deve aparecer no resultado?
+
+## Fase 2 — Coleta de Qualidade
+Se o usuário estiver disposto, aprofunde com:
+
+4. **Há exemplos de referência que devo considerar?**
+   - Exemplos de trabalhos anteriores similares?
+   - Referências externas de estilo ou abordagem?
+
+5. **Qual é o contexto de uso final?**
+   - Como e onde este resultado vai ser usado?
+   - Qual é a situação em que será apresentado?
+
+## Fase 3 — Validação e Execução
+Antes de executar, confirme:
+- Resumir o que foi coletado em 3-5 pontos
+- Perguntar: "Está correto? Posso prosseguir?"
+- Só executar após confirmação explícita
+
+## Instruções para adaptar este template
+- Substitua as perguntas pelos campos específicos da sua skill
+- Mantenha sempre a estrutura de 3 fases (obrigatório / qualidade / validação)
+- Nunca pule a fase de validação — é ela que evita retrabalho</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Use a regra "máximo 3 perguntas por vez". Apresentar mais do que 3 perguntas de uma vez gera abandono. A entrevista deve parecer uma conversa natural, não um formulário burocrático. Se precisar de mais informações, faça em rodadas.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ O que FAZER</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Fazer perguntas abertas que permitem respostas ricas</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Confirmar o entendimento antes de executar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Distinguir o que é obrigatório do que é opcional</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Resumir o que foi coletado antes de prosseguir</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que NÃO fazer</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Apresentar 10 perguntas de uma vez</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Assumir contexto sem perguntar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Pular a validação para "ganhar tempo"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Fazer perguntas que o usuário claramente já respondeu</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">🪞 Skill de reflexão pós-sessão</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Cada sessão de trabalho é uma oportunidade de aprendizado que a maioria das pessoas deixa passar. Você fecha a conversa, começa outra, e o que poderia ter virado conhecimento durável simplesmente evaporou. A skill de reflexão pós-sessão existe para capturar esse valor antes que ele desapareça. Ela conduz uma análise estruturada em poucos minutos — o que foi feito, o que funcionou excepcionalmente bem, o que criou atrito, o que deve ser memorizado no CLAUDE.md e o que deve guiar a próxima sessão. Com o tempo, esse processo cria uma <strong class="text-purple-400">memória operacional evolutiva</strong> que melhora a qualidade de cada sessão subsequente, porque os insights anteriores estão acessíveis e integrados ao contexto de trabalho.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🧠</span> Conceito Principal: Distinção entre contexto efêmero e conhecimento durável
+        </h3>
+        <p class="text-neutral-300 mb-4">A reflexão eficaz distingue dois tipos de aprendizado:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Contexto efêmero:</strong> Detalhes específicos da sessão que não se repetem (ex: "o usuário tinha pressa hoje")</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Conhecimento durável:</strong> Padrões que se repetem e devem ser gravados (ex: "esse tipo de tarefa rende melhor com exemplos concretos")</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Ação imediata:</strong> O que deve ser feito agora, ainda nessa sessão (ex: atualizar um arquivo, criar uma nova skill)</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📄 Template: Skill de Reflexão Pós-Sessão</h3>
+        <pre><code class="text-sm text-neutral-300">---
+name: session-reflection
+description: Use ao final de qualquer sessão de trabalho para analisar o
+  que foi feito, o que funcionou e o que pode melhorar. Acione com
+  "reflexão da sessão", "reflect on session" ou "o que aprendemos hoje".
+---
+# Reflexão de Sessão
+
+## Coleta de Contexto
+Antes de refletir, preciso entender o que aconteceu:
+- Qual foi o principal objetivo desta sessão?
+- O objetivo foi alcançado? (total / parcial / não alcançado)
+- Quanto tempo levou? (estimativa)
+
+## Análise da Sessão
+
+### O que funcionou excepcionalmente bem?
+- Liste 2-3 coisas que fluíram naturalmente
+- O que tornaria essas coisas ainda melhores?
+
+### O que criou atrito ou poderia ser mais rápido?
+- Liste 1-3 pontos de fricção identificados
+- Para cada um: foi problema de skill, de contexto ou de processo?
+
+### O que foi aprendido que deve ser preservado?
+- Insights sobre o usuário ou contexto de trabalho
+- Padrões que se repetem e merecem atenção
+- Abordagens que funcionaram melhor do que o esperado
+
+## Ações de Saída
+Para cada item aprendido, classificar:
+- [ ] Gravar em CLAUDE.md (conhecimento durável sobre o projeto/usuário)
+- [ ] Atualizar uma skill existente
+- [ ] Criar uma nova skill
+- [ ] Nenhuma ação necessária (contexto efêmero)
+
+## Resumo Final
+Produzir um parágrafo de 3-5 frases resumindo:
+1. O que foi feito
+2. O principal aprendizado
+3. O que vai mudar na próxima sessão com base nessa reflexão</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Defina um limite de tempo para a reflexão: <strong>5 minutos para sessões curtas, 10 para longas</strong>. Reflexões que demoram mais do que isso estão indo longe demais. O objetivo é capturar o essencial, não escrever um relatório. Se você não consegue resumir o aprendizado em 3 frases, é sinal de que a sessão não teve foco suficiente.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🔗 Skill de consolidação</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Bibliotecas de skills crescem organicamente, e crescimento orgânico sem curadoria produz redundância. Com o tempo, você inevitavelmente terá duas ou mais skills que fazem coisas muito similares — talvez criadas em momentos diferentes, talvez evoluídas de formas divergentes, talvez nunca revisadas lado a lado. O template de consolidação resolve isso de forma sistemática: ele mapeia as responsabilidades de cada skill candidata, identifica o que se sobrepõe e o que é exclusivo de cada uma, e guia a criação de uma skill unificada que é mais do que a soma das partes. O processo leva em conta não apenas o que as skills fazem, mas como elas fazem — garantindo que o <strong class="text-purple-400">comportamento mais eficaz</strong> de cada uma seja preservado na versão consolidada.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🔀</span> Conceito Principal: Fusão sem perda
+        </h3>
+        <p class="text-neutral-300 mb-4">Uma consolidação bem-feita deve garantir três coisas:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Cobertura total:</strong> Todos os casos de uso das skills originais devem ser cobertos pela skill consolidada</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Sem regressão:</strong> Nenhuma funcionalidade deve piorar no processo de fusão</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Simplificação real:</strong> A skill resultante deve ser mais simples de acionar e usar do que o conjunto anterior</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📄 Template: Skill de Consolidação</h3>
+        <pre><code class="text-sm text-neutral-300">---
+name: skill-consolidation
+description: Use quando identificar skills sobrepostas que podem ser
+  unificadas sem perda de funcionalidade. Acione com "consolidar skills",
+  "fundir skills" ou "skill overlap".
+---
+# Consolidação de Skills
+
+## Entrada Necessária
+Para consolidar, preciso das skills candidatas:
+- Forneça o conteúdo completo de cada skill a ser analisada
+- Mínimo 2 skills, máximo 4 por rodada de consolidação
+
+## Fase 1 — Mapeamento
+
+Para cada skill fornecida, extrair:
+1. **Propósito central** (1 frase)
+2. **Triggers** (todas as condições de acionamento)
+3. **Comportamentos únicos** (o que só ela faz)
+4. **Comportamentos sobrepostos** (o que outras também fazem)
+
+## Fase 2 — Análise de Sobreposição
+
+Criar matriz comparativa:
+| Comportamento | Skill A | Skill B | Skill C |
+|---|---|---|---|
+| [listar comportamentos] | sim/não | sim/não | sim/não |
+
+Identificar:
+- Comportamentos exclusivos (manter como está)
+- Comportamentos sobrepostos (mesclar na melhor versão)
+- Comportamentos conflitantes (decidir qual prevalece)
+
+## Fase 3 — Proposta de Consolidação
+
+Redigir a skill consolidada com:
+- Nome e description unificados
+- Triggers que cobrem todos os casos originais
+- Instruções que incorporam os comportamentos de todas as skills
+- Seção de contexto explicando o que foi consolidado
+
+## Fase 4 — Validação
+
+Testar a skill consolidada contra:
+- [ ] Casos de uso da Skill A
+- [ ] Casos de uso da Skill B
+- [ ] Casos de uso da Skill C (se houver)
+- [ ] Casos limítrofes de cada uma
+
+Aprovar somente se todos os testes passarem.</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Nunca delete as skills originais imediatamente após a consolidação. <strong>Arquive-as por pelo menos 30 dias</strong>. É comum perceber que um caso de uso específico não foi coberto na consolidação, e ter as originais disponíveis economiza horas de reconstrução.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🔍 Skill de auditoria rápida</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Nem sempre você tem 30 minutos para uma auditoria profunda de uma skill. Às vezes você precisa de uma resposta rápida: essa skill está boa o suficiente para usar? Está causando problemas? Precisa de atenção urgente? O template de auditoria rápida foi desenhado para responder a essas perguntas em menos de 5 minutos, verificando os pontos críticos que mais afetam a qualidade de uma skill: clareza do trigger, completude das instruções, qualidade do formato de saída e ausência de ambiguidades fatais. Ele não substitui a auditoria profunda, mas garante que nenhuma skill obviamente quebrada chegue à produção, e que revisões de manutenção sejam feitas de forma eficiente mesmo com agenda cheia.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">⚡</span> Conceito Principal: Checklist mínimo viável
+        </h3>
+        <p class="text-neutral-300 mb-4">Uma auditoria rápida eficaz verifica apenas os pontos que, se ruins, tornam a skill inutilizável:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Trigger test:</strong> Consigo dizer em uma frase quando e por que usar essa skill?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Output test:</strong> O formato de saída está especificado e é adequado para o propósito?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Ambiguity test:</strong> Há alguma instrução que pode ser interpretada de duas formas muito diferentes?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Completeness test:</strong> A skill consegue funcionar com as informações que normalmente estarão disponíveis?</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📄 Template: Skill de Auditoria Rápida</h3>
+        <pre><code class="text-sm text-neutral-300">---
+name: quick-audit
+description: Use para verificar rapidamente se uma skill está funcional
+  e pronta para uso. Acione com "auditoria rápida", "quick audit" ou
+  "checar skill" quando quiser uma validação express em menos de 5 min.
+---
+# Auditoria Rápida de Skill
+
+## Entrada
+Forneça: nome da skill + conteúdo completo da skill a auditar.
+
+## Checklist de 4 Pontos (responder sim/não para cada)
+
+### 1. Clareza de Trigger (CRÍTICO)
+- [ ] O trigger está definido na description?
+- [ ] É possível dizer em 1 frase quando usar essa skill?
+- [ ] O trigger não conflita com outra skill conhecida?
+
+### 2. Completude de Instruções (CRÍTICO)
+- [ ] As instruções cobrem o fluxo principal de uso?
+- [ ] Há instruções para os casos mais comuns de falha/ambiguidade?
+- [ ] A skill não depende de contexto que pode não estar disponível?
+
+### 3. Qualidade do Output (IMPORTANTE)
+- [ ] O formato de saída está especificado?
+- [ ] O nível de detalhe é adequado para o propósito?
+- [ ] A saída é acionável (não apenas informativa)?
+
+### 4. Ausência de Ambiguidades Fatais (IMPORTANTE)
+- [ ] Não há instruções contraditórias?
+- [ ] Termos técnicos ou específicos estão definidos?
+- [ ] O escopo da skill está claro (o que faz E o que não faz)?
+
+## Classificação Final
+- **Verde** (todos os críticos = sim): Pronta para uso
+- **Amarelo** (algum importante = não): Usar com cautela, melhorar em breve
+- **Vermelho** (algum crítico = não): Não usar até corrigir
+
+## Próximos Passos por Classificação
+- Verde: Nenhuma ação necessária
+- Amarelo: Registrar melhorias, endereçar na próxima revisão mensal
+- Vermelho: Corrigir imediatamente antes de qualquer uso</code></pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Use a auditoria rápida como gate de entrada para skills novas antes de adicioná-las à biblioteca principal. <strong>Todo novo template passa pelo checklist antes de ser publicado.</strong> Isso evita acumular lixo desde o início e mantém a qualidade do acervo como um todo.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">✂️ Como adaptar templates</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Templates são pontos de partida, não produtos finais. Um template genérico aplicado diretamente sem adaptação vai produzir resultados mediocres porque não leva em conta o seu contexto específico: seu estilo de trabalho, sua área de atuação, suas ferramentas, seus usuários frequentes. A personalização de templates é uma habilidade que combina entendimento do propósito original do template com clareza sobre onde você diverge desse propósito. O processo tem uma lógica clara: <strong class="text-purple-400">primeiro entender o esqueleto, depois identificar o que é universal e o que é específico</strong>, e finalmente substituir as partes específicas sem comprometer o que torna o template eficaz.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🧩</span> Conceito Principal: Partes fixas vs. partes adaptáveis
+        </h3>
+        <p class="text-neutral-300 mb-4">Em qualquer template de boa qualidade, há uma distinção clara entre:</p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Estrutura (fixo):</strong> A ordem das fases, a lógica de progressão, os checkpoints de validação — estas partes raramente devem mudar</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Conteúdo (adaptável):</strong> As perguntas específicas, o formato de output, os exemplos, o tom — estas partes devem ser adaptadas para o contexto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Contexto (seu):</strong> As informações sobre o seu ambiente, equipe e restrições que só você pode fornecer</span></li>
+        </ul>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Leia o template completo sem modificar</h4>
+            <p class="text-sm text-neutral-400 mb-1">Entendimento antes de ação</p>
+            <p class="text-neutral-300 text-sm">Identifique o propósito central, as fases do fluxo e o que o template assume sobre o contexto.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Marque o que diverge do seu contexto</h4>
+            <p class="text-sm text-neutral-400 mb-1">Diagnóstico de gap</p>
+            <p class="text-neutral-300 text-sm">Para cada seção, responda: "Isso se aplica ao meu contexto como está?" Se não, marque para adaptar.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Adapte as partes marcadas</h4>
+            <p class="text-sm text-neutral-400 mb-1">Personalização cirúrgica</p>
+            <p class="text-neutral-300 text-sm">Substitua apenas o que foi marcado, mantendo a estrutura original. Resistir ao impulso de reescrever tudo do zero.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">4</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Teste com 3 casos reais</h4>
+            <p class="text-sm text-neutral-400 mb-1">Validação antes de publicar</p>
+            <p class="text-neutral-300 text-sm">Use a skill adaptada em 3 situações reais antes de marcá-la como "pronta". Ajuste com base no que encontrar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Mantenha uma versão "base" do template original separada da sua versão adaptada. Isso permite que você volte ao original se a adaptação desviar demais, e facilita criar adaptações para outros contextos no futuro sem partir do zero.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">📁 Onde guardar e versionar</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Templates sem organização são tão ruins quanto templates inexistentes. Se você não consegue encontrar o template certo quando precisa, ou se não sabe qual é a versão atual de um template que passou por múltiplas iterações, o valor do acervo cai para quase zero. A gestão de templates como ativos começa com uma estrutura de pastas clara e uma convenção de nomenclatura consistente, e evolui para incluir versionamento, registro de mudanças e procedimentos de arquivamento para versões obsoletas. O objetivo não é burocracia, mas <strong class="text-purple-400">previsibilidade</strong>: você sempre sabe onde encontrar o que precisa e qual versão usar.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">📂</span> Conceito Principal: Estrutura recomendada
+        </h3>
+        <pre class="text-sm text-neutral-300 bg-dark-900/50 rounded-lg p-4 mt-2">~/.claude/skills/
+├── active/           # Skills em uso ativamente
+│   ├── session-reflection.md
+│   ├── universal-interview.md
+│   └── quick-audit.md
+├── templates/        # Templates base (não adaptar diretamente)
+│   ├── interview-base.md
+│   ├── reflection-base.md
+│   └── audit-base.md
+├── archive/          # Skills obsoletas ou substituídas
+│   └── 2026-01/
+│       └── old-reflection-v1.md
+└── CHANGELOG.md     # Registro de criações, atualizações, archivos</pre>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">📋 Convenções de nomenclatura e versionamento</h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Nomes de arquivo:</strong> kebab-case, descritivo, sem versão no nome (ex: <code class="bg-dark-600 px-1 rounded text-sm">session-reflection.md</code>)</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Versão no frontmatter:</strong> Use o campo <code class="bg-dark-600 px-1 rounded text-sm">version: 1.2</code> dentro do arquivo, não no nome</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>CHANGELOG.md:</strong> Uma linha por mudança, com data, nome da skill e o que mudou</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Archive:</strong> Pasta por mês (AAAA-MM), com a versão antiga antes de substituir</span></li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ O que FAZER</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Arquivar antes de deletar — sempre</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Registrar toda mudança no CHANGELOG</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Manter templates base separados das adaptações</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Usar git para versionamento se possível</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ O que NÃO fazer</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Colocar versão no nome do arquivo (skill-v2.md)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Deletar diretamente sem arquivar</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Modificar templates base no lugar de criar cópias</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Guardar tudo em uma única pasta sem separação</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Um CHANGELOG simples vale mais do que um sistema de versionamento complexo. Basta uma linha por mudança: <code class="bg-dark-700 px-2 py-0.5 rounded text-sm">2026-05-14 | session-reflection | Adicionada seção de ações de saída</code>. Em 30 segundos você cria um registro que vai economizar horas de confusão no futuro.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO FINAL -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Template de entrevista universal</strong><span class="text-neutral-400"> — Estrutura de 3 fases para coletar contexto antes de qualquer ação</span></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Template de reflexão pós-sessão</strong><span class="text-neutral-400"> — Captura insights antes que evaporem, distingue contexto efêmero de conhecimento durável</span></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Template de consolidação</strong><span class="text-neutral-400"> — Processo de fusão de skills sobrepostas sem perda de funcionalidade</span></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Template de auditoria rápida</strong><span class="text-neutral-400"> — Checklist de 4 pontos para validar skills em menos de 5 minutos</span></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Processo de adaptação</strong><span class="text-neutral-400"> — Como personalizar templates mantendo a estrutura e adaptando o conteúdo</span></div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <span class="text-purple-400 mt-1">✓</span>
+            <div><strong class="text-white">Gestão de templates como ativos</strong><span class="text-neutral-400"> — Estrutura de pastas, convenções de nomenclatura e versionamento com CHANGELOG</span></div>
+          </div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.2 — 💥 Prompts Canhão: os prompts de alta potência que evoluem skills de forma radical</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">
+            ← Voltar para Trilha 3
+          </a>
+          <a href="modulo-3-2.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">
+            Próximo Módulo →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden');
+      html.classList.remove('dark');
+    } else {
+      themeToggleLightIcon.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.3 — Sub-agentes para Testar | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span><span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span><span class="hidden sm:inline">Engenharia</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span><span class="hidden sm:inline">No Expert</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">🧪 No Expert</a>
+      <span>/</span>
+      <span class="text-purple-400">Módulo 3.3</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.3</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🤖 Sub-agentes para Testar</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Como usar agentes especializados para cobrir edge cases, simular usuários e identificar fraquezas que testes manuais nunca encontrariam.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">40</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Expert</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Prático</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">📊 Por que sub-agentes superam testes manuais</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Testes manuais de skills têm um defeito estrutural: você testa o caminho que você imaginou. Você criou a skill com uma intenção de uso em mente, e naturalmente vai testá-la nessa intenção. Os casos que você não imaginou — os edge cases, os usuários com perfis diferentes, as situações extremas — ficam invisíveis até que alguém os encontre na prática. Sub-agentes resolvem esse problema porque não têm o viés do criador. Eles simulam sistematicamente o espaço de possibilidades, incluindo <strong class="text-purple-400">os cenários que nenhum humano pensaria em testar</strong>. O resultado é uma cobertura de teste radicalmente mais ampla, com uma fração do tempo que testes manuais abrangentes demandariam.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🎯</span> A vantagem estrutural dos sub-agentes
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <p class="font-semibold text-white mb-2">Testes manuais</p>
+            <ul class="space-y-1 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Viés do criador — testa o caminho feliz</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Escala linear com o número de casos</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Edge cases raramente cobertos</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Perspectiva de uma única persona</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">Sub-agentes</p>
+            <ul class="space-y-1 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Sem viés — explora todo o espaço</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Paralelizável para cobertura total</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Edge cases são o foco principal</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Múltiplas personas simultâneas</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Comece com sub-agentes apenas para suas 5 skills mais usadas. O ROI é imediato e você vai calibrar o processo antes de escalar. Tentar fazer tudo de uma vez é a receita para abandonar a prática antes de sentir os resultados.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">👥 Agente de UX friction</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        UX friction é o atrito que surge quando uma skill é difícil de usar — quando o trigger não é intuitivo, quando as instruções assumem conhecimento que o usuário não tem, quando o output requer interpretação excessiva. O agente de UX friction simula múltiplos perfis de usuário e identifica sistematicamente esses pontos de atrito. Diferente de uma análise técnica, que pergunta "isso funciona?", o agente de UX friction pergunta "isso é fácil de usar para pessoas diferentes?" — uma distinção crítica porque uma skill pode ser tecnicamente correta e ainda assim ser <strong class="text-purple-400">praticamente inutilizável</strong> para qualquer pessoa além do criador.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">👥</span> Personas de teste recomendadas
+        </h3>
+        <div class="space-y-3">
+          <div class="bg-dark-800/50 rounded-lg p-3">
+            <p class="font-semibold text-white text-sm">Persona 1: O Iniciante</p>
+            <p class="text-neutral-400 text-sm">Não sabe o que a skill faz, vai tentar acioná-la de formas inesperadas, não leu a documentação</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-3">
+            <p class="font-semibold text-white text-sm">Persona 2: O Impaciente</p>
+            <p class="text-neutral-400 text-sm">Quer resultados imediatos, vai pular etapas, vai dar o mínimo de contexto possível</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-3">
+            <p class="font-semibold text-white text-sm">Persona 3: O Perfeccionista</p>
+            <p class="text-neutral-400 text-sm">Vai questionar cada instrução, vai querer customizar tudo, vai encontrar ambiguidades</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-3">
+            <p class="font-semibold text-white text-sm">Persona 4: O Expert</p>
+            <p class="text-neutral-400 text-sm">Sabe mais do que a skill assume, vai querer bypass das etapas básicas, vai testar os limites</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-dark-700 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">🤖 Prompt do Agente de UX Friction</h3>
+        <pre class="text-sm text-neutral-300 whitespace-pre-wrap">Você vai simular 4 perfis de usuário tentando usar a skill abaixo.
+Para cada perfil, relate: (1) como tenta acionar a skill, (2) onde
+encontra atrito, (3) o que pode fazer de errado.
+
+[COLE O CONTEÚDO COMPLETO DA SKILL AQUI]
+
+## Perfil 1: Iniciante
+- Tentativa de acionamento: Como alguém sem experiência tentaria usar?
+- Pontos de atrito: O que seria confuso ou difícil de entender?
+- Erros prováveis: O que poderia dar errado sem perceber?
+
+## Perfil 2: Impaciente
+- Tentativa de acionamento: Como alguém com pressa tentaria usar?
+- Pontos de atrito: Quais etapas pareceriam desnecessárias?
+- Erros prováveis: O que seria pulado com consequências negativas?
+
+## Perfil 3: Perfeccionista
+- Tentativa de acionamento: O que seria questionado antes de usar?
+- Pontos de atrito: Quais ambiguidades gerariam paralisia?
+- Erros prováveis: Onde a interpretação excessiva levaria ao lugar errado?
+
+## Perfil 4: Expert
+- Tentativa de acionamento: Como alguém avançado tentaria customizar?
+- Pontos de atrito: O que pareceria excessivamente básico ou limitante?
+- Erros prováveis: Onde a expertise levaria a comportamentos inesperados?
+
+## Síntese
+Liste os 5 principais pontos de atrito identificados em todos os perfis,
+ordenados do mais crítico ao menos crítico.
+Para cada um: o que causou, quem é mais afetado, como corrigir.</pre>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">O Perfil 2 (Impaciente) é geralmente o mais revelador. Usuários impacientes expõem todas as etapas que parecem obrigatórias mas que a skill consegue executar com menos contexto. <strong>Se o impaciente pode pular algo sem comprometer o resultado, essa etapa provavelmente é opcional e deve ser marcada como tal.</strong></p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">🔬 Agente de auditoria estrutural</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Enquanto o agente de UX friction foca na experiência do usuário, o agente de auditoria estrutural foca na arquitetura interna da skill. Ele analisa o fluxo de decisão, identifica redundâncias de instrução, mapeia os pontos onde a skill pode falhar silenciosamente (sem erro explícito, mas com resultado errado) e verifica se a skill tem scope creep — fazendo mais do que deveria. Problemas estruturais raramente aparecem em uso normal; eles aparecem nos casos que desafiam as suposições implícitas da skill. O agente de auditoria estrutural faz exatamente isso: testa as suposições, não o comportamento declarado, expondo <strong class="text-purple-400">fraquezas que ficam invisíveis no caminho feliz</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🔬</span> O que a auditoria estrutural verifica
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Fluxo de decisão:</strong> A skill tem um caminho claro do trigger ao output, sem becos sem saída?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Redundância:</strong> Há instruções que se repetem ou que contradizem outras?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Falha silenciosa:</strong> Há situações em que a skill produziria output errado sem sinalizar o problema?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Scope creep:</strong> A skill tenta fazer mais do que seu propósito declarado?</span></li>
+          <li class="flex items-start space-x-2"><span class="text-purple-400 mt-1">•</span><span><strong>Dependências ocultas:</strong> A skill assume recursos ou contextos que podem não estar disponíveis?</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Foque especialmente nas <strong>falhas silenciosas</strong> — cenários onde a skill executa sem erro mas produz output incorreto. Essas são as mais perigosas porque você não sabe que algo está errado. Peça ao agente para listar especificamente as situações onde isso pode acontecer.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6">
+          <h4 class="font-bold text-purple-400 mb-4">✓ Sinais de boa estrutura</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Cada instrução tem propósito único e claro</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Fluxo linear sem bifurcações ambíguas</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Falhas são sinalizadas explicitamente</span></li>
+            <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Escopo claro e limitado</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Sinais de estrutura problemática</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Instruções que dependem de "bom senso"</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Múltiplas formas de interpretar o fluxo</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Nenhum tratamento de caso de falha</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skill tentando resolver 3 problemas diferentes</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">📋 Como ler os relatórios</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Sub-agentes bem configurados produzem relatórios detalhados — e relatórios detalhados sem triagem produzem paralisia. A habilidade de ler e priorizar os achados é tão importante quanto a habilidade de gerar os achados. O framework de classificação por impacto — high, medium, low — parece simples mas requer julgamento calibrado para ser aplicado corretamente. High impact não significa "sério", significa "afeta significativamente a utilidade da skill para casos de uso comuns". Low impact não significa "ignorar", significa "melhora desejável quando houver tempo". A distinção define onde você deve focar sua <strong class="text-purple-400">energia limitada de melhoria</strong>.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🎯</span> Framework de classificação por impacto
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-red-900/20 rounded-lg p-4 border border-red-500/20">
+            <p class="font-bold text-red-400 mb-1">HIGH IMPACT — Corrigir antes de usar</p>
+            <p class="text-sm text-neutral-300">Afeta casos de uso comuns, pode produzir output incorreto em situações frequentes, ou torna a skill difícil de usar para qualquer perfil de usuário. Se não corrigir, a skill vai causar problemas regularmente.</p>
+          </div>
+          <div class="bg-yellow-900/20 rounded-lg p-4 border border-yellow-500/20">
+            <p class="font-bold text-yellow-400 mb-1">MEDIUM IMPACT — Corrigir no próximo ciclo</p>
+            <p class="text-sm text-neutral-300">Afeta casos de uso menos frequentes ou degrada a qualidade do output sem torná-lo inútil. A skill funciona razoavelmente bem sem essa correção, mas seria significativamente melhor com ela.</p>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-4 border border-dark-600">
+            <p class="font-bold text-neutral-400 mb-1">LOW IMPACT — Endereçar quando houver tempo</p>
+            <p class="text-sm text-neutral-300">Melhorias cosméticas, casos extremamente raros, ou otimizações de performance em situações específicas. A skill não está pior por não ter essas correções; apenas poderia ser ligeiramente melhor.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Antes de ler o relatório, decida quantas horas você tem para melhorias nessa skill. Se tem 30 minutos, corrige apenas high impact. Se tem 2 horas, adiciona os medium impact. <strong>Nunca comece pelos low impact</strong> — é a armadilha clássica de otimizar o que não importa enquanto o que importa continua quebrado.</p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🎯 Priorizando e corrigindo</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Com o relatório priorizado em mãos, o processo de correção tem uma lógica clara: começar pelos high impact, validar cada correção antes de avançar para a próxima, e manter um registro das mudanças feitas. A tentação é corrigir tudo de uma vez — mas correções em cascata sem validação intermediária introduzem novos problemas ao resolver os anteriores. A abordagem correta é cirúrgica: <strong class="text-purple-400">uma correção, um teste, um avanço</strong>. Esse ritmo parece mais lento, mas evita a situação de entregar uma skill "corrigida" que na prática está pior do que a versão original.
+      </p>
+
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">1</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Isolar o high impact #1</h4>
+            <p class="text-sm text-neutral-400 mb-1">Foco singular</p>
+            <p class="text-neutral-300 text-sm">Identificar a correção mais impactante e tratá-la isoladamente, sem tocar em mais nada da skill.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">2</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Aplicar a correção e testar</h4>
+            <p class="text-sm text-neutral-400 mb-1">Validação imediata</p>
+            <p class="text-neutral-300 text-sm">Testar o caso específico que a correção endereçou, E os casos adjacentes, para verificar que nenhuma regressão foi introduzida.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">3</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Registrar a mudança no CHANGELOG</h4>
+            <p class="text-sm text-neutral-400 mb-1">Rastreabilidade</p>
+            <p class="text-neutral-300 text-sm">Documentar o que foi corrigido, por que, e a data. Uma linha no CHANGELOG é suficiente para manter o histórico útil.</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center"><span class="text-purple-400 font-bold">4</span></div>
+          <div class="flex-1 bg-dark-800 rounded-xl p-6 border border-dark-600">
+            <h4 class="font-semibold text-white mb-2">Avançar para o próximo high impact</h4>
+            <p class="text-sm text-neutral-400 mb-1">Progressão controlada</p>
+            <p class="text-neutral-300 text-sm">Repetir o ciclo até esgotar os high impacts, depois decidir se há tempo e necessidade de endereçar os medium impacts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Se a correção de um high impact gerou 3 novos problemas, é sinal de que você está tentando corrigir um sintoma em vez da causa raiz. <strong>Volte e entenda por que o problema existe antes de tentar corrigir como ele se manifesta.</strong></p>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">🎬 Exemplo de sessão completa</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Para tornar o processo concreto, vamos percorrer uma sessão real de teste com sub-agentes, desde o dispatch inicial até a skill melhorada ao final. O exemplo usa a skill de reflexão de sessão como objeto de teste — uma skill simples o suficiente para ser entendida rapidamente, mas com complexidade suficiente para demonstrar os diferentes tipos de findings que os agentes produzem. Cada etapa da sessão é documentada com os inputs e outputs reais, mostrando exatamente como as decisões foram tomadas e por que. O objetivo é fornecer um <strong class="text-purple-400">template mental</strong> que você pode replicar em suas próprias sessões de melhoria.
+      </p>
+
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">🎬</span> Walkthrough: Sessão completa de teste
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 1: Escolher a skill e definir o escopo (2 min)</p>
+            <p class="text-neutral-400 text-sm">Selecionar a skill, decidir quais agentes usar e quanto tempo está disponível. Para essa sessão: session-reflection, agente de UX friction + auditoria estrutural, 45 minutos.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 2: Dispatch do agente de UX friction (10 min)</p>
+            <p class="text-neutral-400 text-sm">Executar o prompt com as 4 personas. Resultado típico: 3-5 friction points, com pelo menos 1 high impact (ex: "o iniciante não entende quando usar sem ver um exemplo").</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 3: Dispatch do agente estrutural (10 min)</p>
+            <p class="text-neutral-400 text-sm">Executar a auditoria estrutural. Resultado típico: 2-4 findings, sendo 1-2 high impact (ex: "a seção de ações de saída não tem critério claro para decidir o que vai para CLAUDE.md").</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 4: Triagem e priorização (5 min)</p>
+            <p class="text-neutral-400 text-sm">Consolidar todos os findings em uma lista única, classificar por impacto, decidir o que corrigir agora. Para 45 minutos: focar nos 2-3 high impacts identificados.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 5: Correção iterativa (15 min)</p>
+            <p class="text-neutral-400 text-sm">Aplicar cada correção high impact separadamente, testando após cada uma. Documentar no CHANGELOG. Resultado: skill V2 com problemas principais resolvidos.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4">
+            <p class="font-semibold text-white text-sm mb-1">Etapa 6: Validação final (5 min)</p>
+            <p class="text-neutral-400 text-sm">Testar a skill V2 em 2-3 casos reais. Confirmar que as correções funcionam sem regressões. Publicar a nova versão. Arquivar a V1 se necessário.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Reserve um bloco de 45-60 minutos por semana especificamente para sessões de melhoria de skills. <strong>Skills melhoradas em blocos dedicados evoluem muito mais rápido do que skills melhoradas ad hoc.</strong> A diferença ao longo de 3 meses é notável.</p>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Sub-agentes vs. testes manuais</strong><span class="text-neutral-400"> — Eliminam o viés do criador e cobrem o espaço de casos impossível para humanos</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Agente de UX friction</strong><span class="text-neutral-400"> — 4 personas simuladas revelam atrito que só aparece com usuários diferentes do criador</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Agente de auditoria estrutural</strong><span class="text-neutral-400"> — Analisa fluxo, redundâncias, falhas silenciosas e scope creep</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Triagem por impacto</strong><span class="text-neutral-400"> — High/medium/low define onde focar energia limitada de melhoria</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Correção iterativa</strong><span class="text-neutral-400"> — Uma correção por vez com validação intermediária, evitando regressões</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-purple-400 mt-1">✓</span><div><strong class="text-white">Sessão completa</strong><span class="text-neutral-400"> — Template de 45 minutos que cobre dispatch, triagem, correção e validação</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-purple-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">3.4 — 🧹 Consolidação de Skills: fundir skills sobrepostas com o Skill Creator 2.0</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-3-2.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-3-4.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !html.classList.contains('dark'))) {
+      themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark');
+    } else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden'); themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

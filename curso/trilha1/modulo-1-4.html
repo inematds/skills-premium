@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1.4 — Como o Claude Escolhe uma Skill | Skills Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">⚡</span>
+            <span class="font-bold text-lg hidden sm:inline">Skills Premium</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Fundamentos</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-emerald-400">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400">⚠️ Fundamentos</a>
+      <span>/</span>
+      <span class="text-emerald-400">Módulo 1.4</span>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.4</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🎯 Como o Claude Escolhe uma Skill</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">O mecanismo interno de seleção — o que o Claude vê, o que ele não vê, como colisões acontecem e como construir triggers que funcionam de forma previsível e confiável.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">6</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">30</div><div class="text-xs text-neutral-400">Minutos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Iniciante</div><div class="text-xs text-neutral-400">Nível</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-emerald-400">Texto</div><div class="text-xs text-neutral-400">Tipo</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Tópico 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">⚡ Como o Sistema de Triggers Funciona</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Ao iniciar uma nova sessão com o Claude, o sistema executa uma etapa de inicialização que carrega os metadados de todas as skills disponíveis no ambiente. Esses metadados — essencialmente nome e início da descrição de cada skill — ficam disponíveis como referência que o Claude consulta a cada mensagem para determinar se alguma skill é relevante para o contexto atual. <strong class="text-emerald-400">Esse processo acontece de forma transparente e automática</strong>, sem nenhuma ação do usuário.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O trigger automático é ativado quando o Claude identifica correspondência entre o que você está pedindo e o caso de uso declarado em alguma skill disponível. A correspondência não é exata — é semântica. O Claude não está procurando por palavras literais; ele está avaliando a intenção da sua mensagem contra a descrição da skill. É por isso que descrições ricas e específicas são tão críticas: elas aumentam a precisão da correspondência semântica.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">⚡</span> Ciclo de Seleção de Skill
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">1.</span><span>Sessão inicia → metadados de todas as skills são carregados</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">2.</span><span>Usuário envia mensagem → Claude avalia contexto</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">3.</span><span>Claude compara intenção da mensagem com descrições das skills</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">4.</span><span>Correspondência encontrada → skill selecionada, corpo carregado</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">5.</span><span>Skill executa conforme suas instruções</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Para verificar quais skills estão ativas na sua sessão atual, você pode perguntar diretamente ao Claude: "Quais skills você tem disponíveis agora?" Isso dá visibilidade imediata ao ambiente sem precisar navegar pelas configurações.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">👁️ O que o Claude Vê no Carregamento</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Um erro comum de design é colocar as informações mais críticas de trigger no meio ou no fim do arquivo da skill, assumindo que o Claude lê o arquivo inteiramente antes de decidir. Na realidade, <strong class="text-emerald-400">na fase de seleção o Claude vê apenas o nome e o início da descrição</strong> — não o corpo completo da skill. O corpo é carregado apenas depois que a skill é selecionada.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Isso tem implicações diretas e práticas para o design do frontmatter. Tudo que é essencial para a seleção correta — casos de uso principais, palavras-chave críticas, condições de ativação — deve estar visível nos primeiros parágrafos da descrição. Informações que só fazem sentido depois que a skill já foi selecionada podem ir no corpo do arquivo.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">👁️</span> Visibilidade por Fase
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded text-xs font-bold mr-2 flex-shrink-0 mt-0.5">SELEÇÃO</span>
+            <span>Nome da skill + primeiros parágrafos da descrição no frontmatter</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded text-xs font-bold mr-2 flex-shrink-0 mt-0.5">EXECUÇÃO</span>
+            <span>Corpo completo da skill, todas as seções e instruções</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="bg-neutral-500/20 text-neutral-400 px-2 py-0.5 rounded text-xs font-bold mr-2 flex-shrink-0 mt-0.5">NUNCA</span>
+            <span>Outros arquivos do ambiente sem MCP ou permissão explícita</span>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Revise o início da descrição de cada skill sua e verifique: se você lesse apenas as primeiras 3 linhas sem contexto, conseguiria identificar exatamente quando usar aquela skill? Se não, reescreva o início para ser mais específico e direto sobre os casos de uso.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">💥 Colisão Entre Skills Similares</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Colisão de trigger ocorre quando duas ou mais skills têm casos de uso sobrepostos na descrição — fazendo o Claude ficar em dúvida sobre qual selecionar. O sintoma mais comum é comportamento errático: às vezes a skill certa é selecionada, às vezes não. <strong class="text-emerald-400">Em cenários de colisão, o Claude pode selecionar a skill errada, combinar instruções das duas, ou simplesmente não selecionar nenhuma</strong> — cada um desses comportamentos é indesejado.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O risco de colisão aumenta exponencialmente com o tamanho do inventário. Com 5 skills, é fácil garantir que não há sobreposição. Com 30, manter os domínios separados requer atenção deliberada. O único momento em que colisão é aceitável é quando você quer que o Claude selecione heuristicamente qual das duas skills similares é mais adequada ao contexto específico — e nesse caso, ambas as skills devem ter descrições que deixam clara a distinção entre elas.
+      </p>
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center">
+          <span class="mr-2">⚠️</span> Sintomas de Colisão
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skill errada sendo selecionada para contextos que deveriam usar outra</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Comportamento inconsistente com o mesmo prompt em sessões diferentes</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Claude mencionando estar "incerto" sobre qual abordagem usar</span></li>
+          <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Skills com palavras-chave idênticas nas descrições sem distinção clara</span></li>
+        </ul>
+      </div>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🔧</span> Como Resolver Colisões
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">1.</span><span>Identifique as skills com descrições sobrepostas</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">2.</span><span>Defina a distinção clara entre os dois casos de uso</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">3.</span><span>Adicione "Não usar quando..." em cada uma para excluir o caso da outra</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">4.</span><span>Se os casos são muito similares, considere unificá-las em uma skill só</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Tópico 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">🔑 O Papel do Nome vs. a Descrição</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Nome e descrição têm funções distintas e não intercambiáveis no sistema de skills. O nome serve ao <strong class="text-emerald-400">invoke manual</strong> — quando você digita "/nome-da-skill" explicitamente — e como identificador único para evitar colisões. A descrição serve ao <strong class="text-emerald-400">trigger automático</strong> — é o texto que o Claude analisa para decidir se invoca a skill baseado no contexto natural da conversa, sem que você precise invocar manualmente.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Essa separação tem uma consequência prática importante: você pode otimizar cada campo para sua função específica sem comprometer o outro. O nome pode ser técnico e conciso — ideal para invoke manual. A descrição pode (e deve) ser mais longa, rica em palavras-chave e casos de uso — ideal para trigger automático. Tentar fazer o nome servir como trigger automático resulta em ambos funcionando mal.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">⚖️</span> Nome vs. Descrição — Responsabilidades
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-semibold text-emerald-400 mb-2">Nome</h4>
+            <ul class="space-y-1 text-neutral-300 text-sm">
+              <li>• Identificador único no sistema</li>
+              <li>• Usado para invoke manual (/nome)</li>
+              <li>• Deve ser curto e memorável</li>
+              <li>• Padrão: domínio-função com hífens</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold text-emerald-400 mb-2">Descrição</h4>
+            <ul class="space-y-1 text-neutral-300 text-sm">
+              <li>• Contrato de trigger automático</li>
+              <li>• Lida para seleção contextual</li>
+              <li>• Deve ser rica em palavras-chave</li>
+              <li>• Inclui "quando usar" e "não usar quando"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Se você tem que digitar "/nome-da-skill" toda vez para usar a skill, provavelmente a descrição não está cumprindo seu papel de trigger automático. Revise a descrição adicionando mais casos de uso concretos e palavras-chave do domínio.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">🧪 Testando a Escolha do Claude</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Uma skill nunca deve ir para uso produtivo sem passar por um protocolo mínimo de testes de trigger. O teste valida que a skill correta é selecionada nos cenários esperados e que não é selecionada em cenários onde deveria ser ignorada. <strong class="text-emerald-400">Testar é a única forma de confirmar que o trigger funciona como você imaginou</strong> — não como você escreveu, mas como o Claude interpreta o que você escreveu.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O protocolo de teste em duas etapas cobre os dois modos de invocação: invoke direto (digitando "/nome-da-skill" explicitamente) valida que o nome está correto e que a skill executa conforme esperado. Prompt vago (descrevendo o cenário sem mencionar a skill) valida que o trigger automático funciona. Se um dos dois falha, há um problema diferente a diagnosticar.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🧪</span> Protocolo de Teste Mínimo
+        </h3>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T1</span><span><strong>Invoke direto:</strong> "/nome-da-skill faça X" — valida que a skill executa corretamente</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T2</span><span><strong>Prompt vago:</strong> descreva o cenário sem mencionar a skill — valida trigger automático</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T3</span><span><strong>Falso positivo:</strong> um cenário que NÃO deveria acionar a skill — valida que não dispara errado</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 font-bold mt-1">T4</span><span><strong>Diagnóstico:</strong> "Qual skill você está usando?" — pede ao Claude para confirmar a seleção</span></li>
+        </ul>
+      </div>
+      <div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">💡</span> Dica Prática
+        </h3>
+        <p class="text-neutral-300">Mantenha um arquivo de testes para cada skill importante — 3-4 prompts que você usa para validar o trigger após qualquer mudança na descrição. Com esse arquivo, testar depois de uma edição leva menos de 2 minutos e garante que você não quebrou o trigger ao tentar melhorar outra coisa.</p>
+      </div>
+    </section>
+
+    <!-- Tópico 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">✏️ Corrigindo Ambiguidades de Trigger</h2>
+      </div>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Quando os testes revelam problemas — trigger não dispara, dispara errado, ou há colisão — o caminho de correção segue uma lógica específica. <strong class="text-emerald-400">Não tente corrigir o comportamento ajustando o corpo da skill</strong>. O problema de trigger é sempre no frontmatter — nome ou descrição. O corpo é irrelevante para a seleção; ele só importa depois que a skill já foi selecionada.
+      </p>
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        As duas técnicas mais eficazes de correção são: adicionar especificidade (mais palavras-chave, mais casos de uso concretos, exemplos de prompts que deveriam ativar a skill) e adicionar exclusões ("Não usar quando o usuário estiver perguntando sobre X" ou "Esta skill é específica para Y, não para Z"). Exclusões são particularmente poderosas para resolver colisões sem precisar renomear nenhuma das skills envolvidas.
+      </p>
+      <div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center">
+          <span class="mr-2">🔧</span> Técnicas de Correção
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Trigger não dispara:</strong> adicione mais palavras-chave e casos de uso à descrição</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Trigger dispara errado:</strong> adicione exclusões explícitas ("Não usar quando...")</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Colisão com outra skill:</strong> diferencie os casos de uso em ambas as descrições</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Comportamento inconsistente:</strong> torne a descrição mais específica e determinística</span></li>
+          <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-1">✓</span><span><strong>Skills muito similares:</strong> considere unificar em uma skill com seções por sub-caso</span></li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+          <h4 class="font-bold text-emerald-400 mb-4">✓ Abordagem correta</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Edite o frontmatter (nome/descrição) para problemas de trigger</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Adicione exclusões explícitas para evitar falsos positivos</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-400">✓</span><span>Teste imediatamente após cada mudança</span></li>
+          </ul>
+        </div>
+        <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+          <h4 class="font-bold text-red-400 mb-4">✗ Armadilhas</h4>
+          <ul class="space-y-3 text-neutral-300">
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Editar o corpo da skill esperando mudar o trigger</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Adicionar instruções no corpo para corrigir colisão (ineficaz)</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-400">✗</span><span>Aceitar comportamento inconsistente como "normal"</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo Final -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+        <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <span class="mr-3">✅</span> Resumo do Módulo 1.4
+        </h2>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Sistema de triggers</strong><span class="text-neutral-400"> — o Claude carrega metadados no início de sessão e compara intenção do prompt com descrições das skills</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Visibilidade na seleção</strong><span class="text-neutral-400"> — apenas nome e início da descrição são visíveis na fase de seleção; o corpo só é carregado depois</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Colisões</strong><span class="text-neutral-400"> — ocorrem quando duas skills têm descrições sobrepostas; corrigidas com exclusões explícitas</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Nome vs. descrição</strong><span class="text-neutral-400"> — nome é para invoke manual; descrição é para trigger automático; otimize cada um para sua função</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Protocolo de teste</strong><span class="text-neutral-400"> — invoke direto + prompt vago + falso positivo + diagnóstico; mínimo antes de uso produtivo</span></div></div>
+          <div class="flex items-start space-x-3"><span class="text-emerald-400 mt-1">✓</span><div><strong class="text-white">Correção de ambiguidades</strong><span class="text-neutral-400"> — sempre no frontmatter; adicionar especificidade e exclusões; nunca no corpo da skill</span></div></div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+          <h3 class="font-semibold text-emerald-400 mb-2">Próximo Módulo:</h3>
+          <p class="text-neutral-300">1.5 — 📂 Progressive Disclosure — A técnica completa para estruturar skills em camadas e torná-las mais eficientes e precisas</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="modulo-1-3.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Módulo Anterior</a>
+          <a href="modulo-1-5.html" class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors">Próximo Módulo →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>Skills Premium — <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> — 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') { themeToggleDarkIcon.classList.remove('hidden'); html.classList.remove('dark'); }
+    else { themeToggleLightIcon.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
